@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BandeauTitre from '../components/BandeauTitre.astro';
+import TitreSection from '../components/TitreSection.astro';
+import Compteur from '../components/Compteur.astro';
+import Photo from '../components/Photo.astro';
+import GrapheMentions from '../components/GrapheMentions.astro';
+import GrapheEvolution from '../components/GrapheEvolution.astro';
+import { lienWhatsApp } from '../lib/site';
+
+const resultats = [
+  {
+    examen: 'CEP',
+    valeur: 100,
+    decimales: 0,
+    detail: null,
+  },
+  {
+    examen: 'BEPC',
+    valeur: 98.9,
+    decimales: 2,
+    detail: '179 admis sur 181 candidats',
+  },
+  {
+    examen: 'BAC série A',
+    valeur: 100,
+    decimales: 0,
+    detail: null,
+  },
+  {
+    examen: 'BAC série D',
+    valeur: 93.62,
+    decimales: 2,
+    detail: '88 admis sur 94 candidats',
+  },
+];
+---
+
+<BaseLayout
+  titre="Nos résultats — Complexe Scolaire Sainte Famille, Pissy Ouagadougou"
+  description="Résultats aux examens du Complexe Scolaire Sainte Famille : 100 % au CEP, 98,90 % au BEPC, 100 % au BAC série A et 93,62 % au BAC série D à la session 2026."
+>
+  <BandeauTitre
+    titre="Nos résultats : l'excellence depuis 2001"
+    intro="Chaque session confirme le même engagement : celui de nos élèves, de nos enseignants et des familles qui nous font confiance."
+  />
+
+  <!-- ============ Session 2026 ============ -->
+  <section class="section" id="session-2026">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Session 2026"
+        titre="Les résultats de cette année"
+        intro="Taux de réussite obtenus aux quatre examens nationaux préparés dans l'établissement."
+        centre
+      />
+
+      <div class="mt-10 grid grid-cols-2 gap-4 md:mt-14 md:grid-cols-4 md:gap-6">
+        {
+          resultats.map((resultat, index) => (
+            <div
+              class="carte anim flex flex-col items-center justify-center px-3 py-7 text-center md:px-5 md:py-9"
+              data-retard={index + 1}
+            >
+              <p class="text-xs font-semibold tracking-[0.14em] text-dore-texte uppercase">
+                {resultat.examen}
+              </p>
+              <p class="mt-3 font-serif text-[2.125rem] leading-none text-vert md:text-[3.25rem]">
+                <Compteur valeur={resultat.valeur} decimales={resultat.decimales} suffixe=" %" />
+              </p>
+              <p class="mt-3 min-h-[2.5rem] text-sm leading-snug text-encre-douce">
+                {resultat.detail ?? 'de réussite'}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Mise en avant BAC A ============ -->
+  <section class="bg-vert-fonce py-14 text-white md:py-20">
+    <div class="conteneur">
+      <div class="anim mx-auto max-w-3xl text-center">
+        <p class="text-xs font-semibold tracking-[0.18em] text-dore-clair uppercase">
+          Notre plus belle constance
+        </p>
+        <p class="mt-5 font-serif text-[3.5rem] leading-none text-dore-clair md:text-[5.5rem]">
+          <Compteur valeur={100} suffixe=" %" />
+        </p>
+        <h2 class="mt-5 text-[1.5rem] leading-tight md:text-[2.25rem]">
+          de réussite au BAC série A, six années de suite
+        </h2>
+        <p class="mt-4 text-base text-white/75 md:text-lg">
+          De 2021 à 2026, tous nos candidats de la série littéraire ont obtenu leur Baccalauréat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Mentions BAC D 2026 ============ -->
+  <section class="section" id="mentions">
+    <div class="conteneur">
+      <div class="grid gap-10 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:items-center md:gap-16">
+        <div class="anim">
+          <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+            BAC série D 2026
+          </p>
+          <h2 class="titre-section filet">Les mentions obtenues</h2>
+          <p class="texte-courant mt-6">
+            Au-delà du taux de réussite, la répartition des mentions témoigne du niveau réel de nos
+            candidats. Onze d'entre eux ont décroché une mention Bien ou Très Bien.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-creme p-6 md:p-9">
+          <GrapheMentions />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Évolution 2021 - 2026 ============ -->
+  <section class="section bg-creme" id="evolution">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="2021 – 2026"
+        titre="Six sessions de résultats"
+        intro="Une réussite qui ne dépend pas d'une bonne année, mais d'un travail tenu dans le temps."
+        centre
+      />
+
+      <div class="mt-10 rounded-2xl bg-white p-5 md:mt-14 md:p-9">
+        <GrapheEvolution />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Photo des lauréats ============ -->
+  <section class="section" id="laureats">
+    <div class="conteneur">
+      <div class="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+        <div class="anim order-2 md:order-1">
+          <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+            Journée du mérite 2026
+          </p>
+          <h2 class="titre-section filet">Célébrer ceux qui réussissent</h2>
+          <p class="texte-courant mt-6">
+            Chaque année, l'école récompense les majors du BEPC et du Baccalauréat, ainsi que les
+            enseignants méritants, lors de la Journée du mérite et des retrouvailles.
+          </p>
+          <a href="/actualites/journee-du-merite-2026/" class="btn btn-contour mt-8">
+            Lire l'article
+          </a>
+        </div>
+
+        <div class="anim order-1 md:order-2" data-retard="1">
+          <div class="overflow-hidden rounded-2xl shadow-[0_22px_50px_-28px_rgb(17_17_17_/_0.45)]">
+            <Photo
+              nom="laureats-prix"
+              alt="Les lauréats du Complexe Scolaire Sainte Famille recevant leurs prix lors de la Journée du mérite 2026"
+              largeurs={[480, 768, 1024]}
+              sizes="(max-width: 768px) 92vw, 560px"
+              ratio="4 / 3"
+              class="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Appel à l'action ============ -->
+  <section class="bg-creme pb-16 md:pb-24">
+    <div class="conteneur">
+      <div
+        class="anim mx-auto max-w-3xl rounded-2xl bg-vert-fonce px-6 py-11 text-center text-white md:px-12 md:py-14"
+      >
+        <h2 class="text-[1.625rem] leading-tight md:text-[2.5rem]">
+          Votre enfant mérite cet encadrement
+        </h2>
+        <p class="mt-4 text-base text-white/80 md:text-lg">
+          Écrivez-nous sur WhatsApp pour connaître les dates des tests de recrutement et les
+          modalités d'inscription.
+        </p>
+        <a
+          href={lienWhatsApp(
+            'Bonjour, je souhaite des informations sur les inscriptions au Complexe Scolaire Sainte Famille.',
+          )}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-blanc mt-8 w-full sm:w-auto"
+        >
+          Nous écrire sur WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

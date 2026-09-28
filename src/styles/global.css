@@ -1,0 +1,409 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Identite visuelle du Complexe Scolaire Sainte Famille
+   ------------------------------------------------------------------ */
+@theme {
+  --color-vert: #1e6b34;
+  --color-vert-fonce: #165127;
+  --color-vert-clair: #e8f1ea;
+  --color-bordeaux: #9e1b1b;
+  /* Dore de la charte, pour les elements graphiques (filets, barres, marqueurs). */
+  --color-dore: #b8921f;
+  /* Deux variantes reservees au TEXTE, pour un contraste suffisant (WCAG AA) :
+     l'une pour les fonds clairs, l'autre pour le fond vert fonce. */
+  --color-dore-texte: #7e6410;
+  --color-dore-clair: #e0ba45;
+  --color-creme: #fbf3e0;
+  --color-creme-fonce: #f3e6ca;
+  --color-bleu: #1f3f8f;
+  --color-bleu-clair: #3560c9;
+  --color-encre: #111111;
+  --color-encre-douce: #46474a;
+  --color-encre-faible: #6b6c70;
+
+  /* Couleurs vives du logo, reservees aux petits accents */
+  --color-logo-rouge: #e31e24;
+  --color-logo-vert: #2db34a;
+  --color-logo-jaune: #f7d117;
+
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --breakpoint-xs: 400px;
+
+  --ease-douce: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------
+   Bases
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Compense la barre de navigation collante lors des ancres */
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-encre);
+    font-family: var(--font-sans);
+    font-size: 1rem; /* 16px minimum sur mobile */
+    line-height: 1.65;
+    /* Garde-fou : aucun debordement horizontal possible */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.15;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Accessibilite clavier : anneau de focus toujours visible */
+  :focus-visible {
+    outline: 3px solid var(--color-bleu);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  img,
+  svg,
+  iframe {
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: var(--color-vert);
+    color: #ffffff;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilitaires
+   ------------------------------------------------------------------ */
+@utility conteneur {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Composants reutilisables
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Rythme vertical : 64px sur mobile, 96px sur ordinateur */
+  .section {
+    padding-block: 4rem;
+  }
+  @media (width >= 768px) {
+    .section {
+      padding-block: 6rem;
+    }
+  }
+
+  .titre-section {
+    font-size: clamp(1.75rem, 5.2vw, 3rem); /* 28px -> 48px */
+  }
+
+  .texte-courant {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-encre-douce);
+  }
+  @media (width >= 768px) {
+    .texte-courant {
+      font-size: 1.125rem; /* 18px */
+    }
+  }
+
+  /* Texte a l'interieur des cartes et des blocs courts.
+     Jamais sous 16 px, y compris sur mobile. */
+  .texte-carte {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-encre-douce);
+  }
+
+  /* Boutons : 48px de haut minimum, cible tactile confortable */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.25s var(--ease-douce),
+      color 0.25s var(--ease-douce),
+      transform 0.25s var(--ease-douce),
+      box-shadow 0.25s var(--ease-douce);
+  }
+
+  .btn-vert {
+    background-color: var(--color-vert);
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgb(17 17 17 / 0.16);
+  }
+  .btn-vert:hover {
+    background-color: var(--color-vert-fonce);
+    box-shadow: 0 6px 18px -6px rgb(30 107 52 / 0.55);
+  }
+
+  .btn-blanc {
+    background-color: rgb(255 255 255 / 0.95);
+    color: var(--color-encre);
+    box-shadow: 0 1px 2px rgb(17 17 17 / 0.16);
+  }
+  .btn-blanc:hover {
+    background-color: #ffffff;
+    box-shadow: 0 6px 18px -6px rgb(17 17 17 / 0.4);
+  }
+
+  .btn-contour {
+    border: 2px solid var(--color-vert);
+    color: var(--color-vert);
+    background-color: transparent;
+  }
+  .btn-contour:hover {
+    background-color: var(--color-vert);
+    color: #ffffff;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  /* Carte : elevation douce au survol sur ordinateur uniquement */
+  .carte {
+    background-color: #ffffff;
+    border: 1px solid rgb(17 17 17 / 0.07);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition:
+      transform 0.35s var(--ease-douce),
+      box-shadow 0.35s var(--ease-douce),
+      border-color 0.35s var(--ease-douce);
+  }
+  @media (hover: hover) and (width >= 768px) {
+    .carte:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 38px -18px rgb(17 17 17 / 0.28);
+      border-color: rgb(30 107 52 / 0.22);
+    }
+    .carte:hover .carte-zoom {
+      transform: scale(1.055);
+    }
+  }
+  .carte-zoom {
+    transition: transform 0.65s var(--ease-douce);
+  }
+
+  /* Lien « etire » : rend cliquable toute la carte qui le contient.
+     La carte doit porter la classe `relative`. */
+  .lien-etire::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* Filet decoratif sous un titre de section */
+  .filet::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 3px;
+    margin-top: 1rem;
+    border-radius: 2px;
+    background-color: var(--color-dore);
+  }
+  .filet-centre::after {
+    margin-inline: auto;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Animations
+   ------------------------------------------------------------------ */
+
+/* Apparition au defilement : etat initial, puis classe .est-visible */
+.anim {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-douce),
+    transform 0.7s var(--ease-douce);
+}
+.anim.est-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Decalage en cascade pour les grilles */
+.anim[data-retard='1'] {
+  transition-delay: 0.09s;
+}
+.anim[data-retard='2'] {
+  transition-delay: 0.18s;
+}
+.anim[data-retard='3'] {
+  transition-delay: 0.27s;
+}
+.anim[data-retard='4'] {
+  transition-delay: 0.36s;
+}
+.anim[data-retard='5'] {
+  transition-delay: 0.45s;
+}
+
+/* Banniere : zoom lent facon Ken Burns */
+@keyframes ken-burns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.13);
+  }
+}
+.ken-burns {
+  animation: ken-burns 26s var(--ease-douce) forwards;
+}
+
+/* Apparition du texte de la banniere */
+@keyframes monte {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.monte {
+  animation: monte 0.85s var(--ease-douce) both;
+}
+.monte-1 {
+  animation-delay: 0.15s;
+}
+.monte-2 {
+  animation-delay: 0.32s;
+}
+.monte-3 {
+  animation-delay: 0.49s;
+}
+
+/* Bouton WhatsApp flottant : pulsation toutes les quelques secondes */
+@keyframes pulsation {
+  0%,
+  88%,
+  100% {
+    box-shadow:
+      0 6px 20px -6px rgb(17 17 17 / 0.45),
+      0 0 0 0 rgb(37 211 102 / 0.55);
+  }
+  92% {
+    box-shadow:
+      0 6px 20px -6px rgb(17 17 17 / 0.45),
+      0 0 0 12px rgb(37 211 102 / 0);
+  }
+}
+.pulsation {
+  animation: pulsation 5s ease-out infinite;
+}
+
+/* Trace progressif des courbes du graphique */
+.trace {
+  stroke-dasharray: var(--longueur, 1200);
+  stroke-dashoffset: var(--longueur, 1200);
+  transition: stroke-dashoffset 1.6s var(--ease-douce);
+}
+.est-visible .trace {
+  stroke-dashoffset: 0;
+}
+.point-graphe {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-douce);
+}
+.est-visible .point-graphe {
+  opacity: 1;
+  transition-delay: 1.15s;
+}
+
+/* Barres de mentions : croissance horizontale a l'apparition */
+.barre {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.1s var(--ease-douce);
+}
+.est-visible .barre {
+  transform: scaleX(1);
+}
+
+/* Frise chronologique : le trait se remplit */
+.trait-frise {
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 1.4s var(--ease-douce);
+}
+.est-visible .trait-frise {
+  transform: scaleY(1);
+}
+
+/* ------------------------------------------------------------------
+   Respect du reglage systeme "reduire les animations"
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    transition-delay: 0s !important;
+  }
+  .anim {
+    opacity: 1;
+    transform: none;
+  }
+  .ken-burns {
+    animation: none;
+  }
+  .trace {
+    stroke-dashoffset: 0;
+  }
+  .barre {
+    transform: scaleX(1);
+  }
+  .trait-frise {
+    transform: scaleY(1);
+  }
+  .point-graphe {
+    opacity: 1;
+  }
+}

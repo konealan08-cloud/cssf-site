@@ -1,0 +1,526 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BandeauTitre from '../components/BandeauTitre.astro';
+import TitreSection from '../components/TitreSection.astro';
+import Photo from '../components/Photo.astro';
+import Frise from '../components/Frise.astro';
+import LogoEcole from '../components/LogoEcole.astro';
+import NousTrouver from '../components/NousTrouver.astro';
+import { WHATSAPP_URL } from '../lib/site';
+
+const etapes = [
+  {
+    date: '1835',
+    titre: 'Fondation des Frères de la Sainte Famille',
+    texte: 'Le Frère Gabriel Taborin fonde la congrégation des Frères de la Sainte Famille.',
+  },
+  {
+    date: '2000',
+    titre: 'Un projet offert au Burkina Faso',
+    texte:
+      'La congrégation porte le projet d\'une école offerte au Burkina Faso, à l\'occasion du centenaire de l\'évangélisation du pays.',
+  },
+  {
+    date: 'Octobre 2001',
+    titre: 'Ouverture des classes',
+    texte: 'Les premières classes du Complexe Scolaire Sainte Famille accueillent leurs élèves.',
+  },
+  {
+    date: '12 janvier 2002',
+    titre: 'Inauguration de l\'établissement',
+    texte: 'L\'école est officiellement inaugurée au quartier Pissy.',
+  },
+  {
+    date: 'Novembre 2002',
+    titre: 'Reconnaissance officielle',
+    texte: 'L\'établissement obtient sa reconnaissance officielle par les autorités.',
+  },
+  {
+    date: 'Aujourd\'hui',
+    titre: 'Du CP à la Terminale',
+    texte:
+      'L\'école couvre tout le parcours scolaire, du cours préparatoire à la classe de Terminale.',
+  },
+];
+
+const valeurs = [
+  {
+    titre: 'Discipline',
+    texte:
+      'Un cadre clair et constant, qui forge le caractère et apprend à chacun le respect de soi, des autres et des règles communes.',
+  },
+  {
+    titre: 'Travail',
+    texte:
+      'L\'effort régulier comme chemin de la réussite. Un encadrement attentif accompagne chaque élève dans sa progression.',
+  },
+  {
+    titre: 'Fraternité',
+    texte:
+      'Une école où l\'on se connaît et se soutient, entre élèves, enseignants et familles, comme dans une véritable famille.',
+  },
+];
+
+const symboles = [
+  {
+    sigle: 'JMJ',
+    titre: 'Jésus, Marie, Joseph',
+    texte: 'Les initiales de la Sainte Famille, à laquelle l\'établissement est consacré.',
+  },
+  {
+    sigle: '★',
+    titre: 'L\'étoile filante',
+    texte: 'Sur fond rouge, la lumière qui guide et l\'espérance offerte à chaque élève.',
+  },
+  {
+    sigle: '✎',
+    titre: 'Le livre ouvert et la plume',
+    texte: 'Le savoir et le travail scolaire, au cœur de la mission éducative.',
+  },
+  {
+    sigle: '✝',
+    titre: 'La croix',
+    texte: 'Sur fond vert, la foi chrétienne qui inspire le projet éducatif de l\'école.',
+  },
+  {
+    sigle: '⌂',
+    titre: 'La case',
+    texte: 'L\'enracinement dans la culture et la terre du Burkina Faso.',
+  },
+];
+
+const formations = [
+  {
+    titre: 'Primaire',
+    niveaux: 'CP1 à CM2',
+    texte:
+      'Les fondations : lire, écrire, compter, et prendre de bonnes habitudes de travail dès les premières années.',
+    examen: 'Examen : CEP',
+  },
+  {
+    titre: 'Post-primaire',
+    niveaux: '6e à 3e',
+    texte:
+      'Le collège, où les élèves consolident leurs acquis et se préparent progressivement au choix d\'une série.',
+    examen: 'Examen : BEPC',
+  },
+  {
+    titre: 'Secondaire général',
+    niveaux: '2nde à Terminale',
+    texte: 'Deux parcours au choix, scientifique ou littéraire, jusqu\'au Baccalauréat.',
+    examen: 'Examen : Baccalauréat',
+  },
+];
+
+const vieScolaire = [
+  {
+    titre: 'Culture',
+    photo: 'tenues-traditionnelles',
+    alt: 'Élèves en tenues traditionnelles burkinabè lors d\'une journée culturelle',
+    texte:
+      'Journées culturelles et tenues traditionnelles : les élèves célèbrent la richesse du patrimoine burkinabè.',
+  },
+  {
+    titre: 'Pastorale',
+    photo: 'messe-communion',
+    alt: 'Célébration de la messe avec les élèves',
+    texte:
+      'Messes, temps de prière et accompagnement spirituel rythment l\'année, dans le respect de chacun.',
+  },
+  {
+    titre: 'Solidarité',
+    photo: 'don-pdi-2023',
+    alt: 'Don des élèves aux personnes déplacées internes en 2023',
+    texte:
+      'En 2023, les élèves ont offert trois tonnes de riz et 20 bidons d\'huile aux personnes déplacées internes et aux blessés de guerre, grâce à leurs propres cotisations.',
+    lien: '/actualites/solidarite-pdi-2023/',
+  },
+];
+---
+
+<BaseLayout
+  titre="L'école — Complexe Scolaire Sainte Famille, Pissy Ouagadougou"
+  description="Histoire, valeurs, blason et formations du Complexe Scolaire Sainte Famille : une école catholique tenue par les Frères de la Sainte Famille à Pissy, du CP à la Terminale depuis 2001."
+>
+  <BandeauTitre
+    titre="Notre école"
+    intro="Une école catholique tenue par les Frères de la Sainte Famille, ouverte en 2001 au quartier Pissy, qui accompagne les élèves du CP à la Terminale."
+  />
+
+  <!-- ============ Notre histoire ============ -->
+  <section class="section" id="histoire">
+    <div class="conteneur">
+      <div class="md:grid md:grid-cols-[1fr_1.35fr] md:gap-16">
+        <div>
+          <TitreSection surtitre="Depuis 1835" titre="Notre histoire" />
+          <p class="texte-courant mt-6 md:pr-4">
+            De la fondation de la congrégation en France à l'ouverture des classes à Ouagadougou,
+            notre école est née d'un projet offert au Burkina Faso.
+          </p>
+        </div>
+
+        <Frise etapes={etapes} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Mot du directeur ============ -->
+  <section class="section bg-creme" id="mot-du-directeur">
+    <div class="conteneur">
+      <div class="mx-auto max-w-3xl">
+        <div class="anim flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
+          <div
+            class="h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-[0_14px_34px_-18px_rgb(17_17_17_/_0.5)] md:h-28 md:w-28"
+          >
+            <Photo
+              nom="directeur"
+              alt="Portrait du Frère Séraphin YAMEOGO, Directeur du Complexe Scolaire Sainte Famille"
+              largeurs={[128, 224, 336]}
+              sizes="112px"
+              ratio="1 / 1"
+              class="h-full w-full object-cover"
+              position="center 28%"
+            />
+          </div>
+          <div>
+            <p class="text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+              Mot du directeur
+            </p>
+            <h2 class="mt-2 text-[1.5rem] leading-tight md:text-[2rem]">Frère Séraphin YAMEOGO</h2>
+            <p class="mt-1 text-sm text-encre-faible">
+              Directeur du Complexe Scolaire Sainte Famille
+            </p>
+          </div>
+        </div>
+
+        <blockquote class="anim mt-9 space-y-5 md:mt-11" data-retard="1">
+          <p class="texte-courant">Chers parents, chers élèves, chers amis,</p>
+          <p class="texte-courant">
+            Depuis 2001, le Complexe Scolaire Sainte Famille accompagne les enfants de Pissy et de
+            Ouagadougou, du CP à la Terminale. Fidèles à l'héritage du Frère Gabriel Taborin,
+            fondateur des Frères de la Sainte Famille, nous poursuivons une même mission : former de
+            bons citoyens pour la société, capables de servir leur pays avec compétence et intégrité.
+          </p>
+          <p class="texte-courant">
+            Notre devise, <strong class="font-semibold text-encre"
+              >Discipline – Travail – Fraternité</strong
+            >, n'est pas une simple formule. Elle guide chaque jour la vie de notre établissement :
+            la discipline qui forge le caractère, le travail qui ouvre les portes de la réussite, et
+            la fraternité qui fait de notre école une véritable famille.
+          </p>
+          <p class="texte-courant">
+            Les excellents résultats obtenus chaque année aux examens sont le fruit de l'engagement
+            de nos élèves, du dévouement de nos enseignants et de la confiance des parents. Mais
+            au-delà des diplômes, nous voulons offrir à chaque enfant une éducation complète, qui
+            prend soin de son intelligence, de son cœur et de sa foi.
+          </p>
+          <p class="texte-courant">
+            À vous, parents, qui cherchez pour votre enfant un cadre exigeant et bienveillant, je
+            dis : soyez les bienvenus dans la famille de la Sainte Famille.
+          </p>
+
+          <footer class="border-l-[3px] border-dore pl-4 pt-1">
+            <p class="font-semibold text-encre">Frère Séraphin YAMEOGO</p>
+            <p class="mt-0.5 text-sm text-encre-faible">
+              Directeur du Complexe Scolaire Sainte Famille
+            </p>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Nos valeurs ============ -->
+  <section class="section" id="valeurs">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Discipline – Travail – Fraternité"
+        titre="Nos valeurs"
+        intro="Trois mots qui ne sont pas une formule, mais la trame de chaque journée de classe."
+        centre
+      />
+
+      <div class="mt-10 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          valeurs.map((valeur, index) => (
+            <div class="carte anim flex flex-col p-6 md:p-7" data-retard={index + 1}>
+              <span
+                class="font-serif text-2xl leading-none text-dore-texte/70"
+                aria-hidden="true"
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 class="mt-4 text-xl md:text-2xl">{valeur.titre}</h3>
+              <p class="mt-3 texte-carte">{valeur.texte}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <figure
+        class="anim mx-auto mt-10 max-w-2xl rounded-2xl bg-vert-clair px-6 py-8 text-center md:mt-14 md:px-10 md:py-10"
+      >
+        <blockquote class="font-serif text-lg leading-relaxed text-vert-fonce md:text-2xl md:leading-[1.5]">
+          <span class="text-dore-texte" aria-hidden="true">«</span> Former de bons citoyens pour la société
+          et des saints pour le ciel <span class="text-dore-texte" aria-hidden="true">»</span>
+        </blockquote>
+        <figcaption class="mt-5 text-sm font-medium text-vert">
+          Frère Gabriel Taborin, fondateur des Frères de la Sainte Famille
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ Notre blason ============ -->
+  <!-- TEXTE A VALIDER PAR L'ECOLE : la signification des symboles du blason
+       ci-dessous est une proposition de redaction. Elle doit etre relue et
+       confirmee par la direction avant la mise en ligne definitive. -->
+  <section class="section bg-creme" id="blason">
+    <div class="conteneur">
+      <div class="grid items-center gap-10 md:grid-cols-[minmax(0,0.85fr)_1.15fr] md:gap-16">
+        <div class="anim flex justify-center">
+          <div
+            class="grid h-44 w-44 place-items-center rounded-full bg-white p-3 shadow-[0_22px_50px_-28px_rgb(17_17_17_/_0.4)] md:h-56 md:w-56 md:p-4"
+          >
+            <LogoEcole class="h-full w-full" loading="lazy" />
+          </div>
+        </div>
+
+        <div>
+          <TitreSection surtitre="Notre identité" titre="Notre blason" />
+          <p class="texte-courant mt-6">
+            Porté par les banderoles du nom de l'école et de la devise
+            <strong class="font-semibold text-encre">Discipline – Travail – Fraternité</strong>,
+            chaque élément du blason rappelle un aspect du projet éducatif.
+          </p>
+
+          <ul class="mt-8 space-y-4">
+            {
+              symboles.map((symbole, index) => (
+                <li class="anim flex gap-4" data-retard={Math.min(index + 1, 5)}>
+                  <span
+                    class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-vert/10 font-serif text-sm font-bold text-vert"
+                    aria-hidden="true"
+                  >
+                    {symbole.sigle}
+                  </span>
+                  <div>
+                    <h3 class="text-base md:text-lg">{symbole.titre}</h3>
+                    <p class="mt-1 texte-carte">
+                      {symbole.texte}
+                    </p>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Nos formations ============ -->
+  <section class="section" id="formations">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Du CP à la Terminale"
+        titre="Nos formations"
+        intro="Un parcours complet, sans rupture, au sein du même établissement."
+        centre
+      />
+
+      <div class="mt-10 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          formations.map((formation, index) => (
+            <div class="carte anim flex flex-col p-6 md:p-7" data-retard={index + 1}>
+              <p class="text-xs font-semibold tracking-[0.16em] text-dore-texte uppercase">
+                {formation.niveaux}
+              </p>
+              <h3 class="mt-2.5 text-xl md:text-2xl">{formation.titre}</h3>
+              <p class="mt-3 flex-1 texte-carte">
+                {formation.texte}
+              </p>
+              <p class="mt-5 border-t border-black/8 pt-4 text-sm font-semibold text-vert">
+                {formation.examen}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Schema des deux parcours du secondaire -->
+      <div class="anim mt-10 rounded-2xl bg-creme p-6 md:mt-12 md:p-10">
+        <h3 class="text-center text-lg md:text-2xl">Les deux parcours du secondaire</h3>
+        <p class="mx-auto mt-2.5 max-w-xl texte-carte text-center">
+          À l'entrée en seconde, l'élève choisit la voie scientifique ou la voie littéraire.
+        </p>
+
+        <div class="mt-8 space-y-5 md:mt-10 md:space-y-6">
+          <div>
+            <p class="mb-3 text-xs font-semibold tracking-[0.16em] text-bleu uppercase">
+              Voie scientifique
+            </p>
+            <ol class="flex flex-col gap-2 xs:flex-row xs:items-center xs:gap-1.5">
+              {
+                ['2nde C', '1ère D', 'Terminale D'].map((classe, index) => (
+                  <>
+                    {index > 0 && (
+                      <li
+                        class="flex justify-center text-bleu/45 xs:block"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.4"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="rotate-90 xs:rotate-0"
+                        >
+                          <path d="M5 12h13M12.5 6l6 6-6 6" />
+                        </svg>
+                      </li>
+                    )}
+                    <li class="flex-1">
+                      <span
+                        class="block rounded-xl border-2 border-bleu/25 bg-white px-3 py-3 text-center text-base font-semibold text-bleu"
+                      >
+                        {classe}
+                      </span>
+                    </li>
+                  </>
+                ))
+              }
+            </ol>
+          </div>
+
+          <div>
+            <p class="mb-3 text-xs font-semibold tracking-[0.16em] text-bordeaux uppercase">
+              Voie littéraire
+            </p>
+            <ol class="flex flex-col gap-2 xs:flex-row xs:items-center xs:gap-1.5">
+              {
+                ['2nde A', '1ère A', 'Terminale A'].map((classe, index) => (
+                  <>
+                    {index > 0 && (
+                      <li
+                        class="flex justify-center text-bordeaux/40 xs:block"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.4"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="rotate-90 xs:rotate-0"
+                        >
+                          <path d="M5 12h13M12.5 6l6 6-6 6" />
+                        </svg>
+                      </li>
+                    )}
+                    <li class="flex-1">
+                      <span
+                        class="block rounded-xl border-2 border-bordeaux/22 bg-white px-3 py-3 text-center text-base font-semibold text-bordeaux"
+                      >
+                        {classe}
+                      </span>
+                    </li>
+                  </>
+                ))
+              }
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Vie à l'école ============ -->
+  <section class="section bg-creme" id="vie-a-lecole">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Au quotidien"
+        titre="La vie à l'école"
+        intro="Au-delà des cours, une école vivante, ouverte sur sa culture et sur les autres."
+        centre
+      />
+
+      <div class="mt-10 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          vieScolaire.map((bloc, index) => (
+            <article class="carte anim flex flex-col" data-retard={index + 1}>
+              <Photo
+                nom={bloc.photo}
+                alt={bloc.alt}
+                largeurs={[400, 640, 800]}
+                sizes="(max-width: 768px) 92vw, 380px"
+                ratio="4 / 3"
+                class="carte-zoom aspect-[4/3] w-full object-cover"
+              />
+              <div class="flex flex-1 flex-col p-5 md:p-6">
+                <h3 class="text-lg md:text-xl">{bloc.titre}</h3>
+                <p class="mt-2.5 flex-1 texte-carte">
+                  {bloc.texte}
+                </p>
+                {bloc.lien && (
+                  <a
+                    href={bloc.lien}
+                    class="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-vert transition-colors hover:text-vert-fonce"
+                  >
+                    Lire l'article
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h13M12.5 6l6 6-6 6" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Nous trouver ============ -->
+  <NousTrouver />
+
+  <!-- ============ Appel à l'action ============ -->
+  <section class="bg-vert-fonce py-14 text-white md:py-20">
+    <div class="conteneur">
+      <div class="anim mx-auto max-w-2xl text-center">
+        <h2 class="text-[1.625rem] leading-tight md:text-[2.5rem]">
+          Rejoignez la famille de la Sainte Famille
+        </h2>
+        <p class="mt-4 text-base text-white/80 md:text-lg">
+          Nous répondons à vos questions sur les tests de recrutement, les classes disponibles et
+          les modalités d'inscription.
+        </p>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-blanc mt-8 w-full sm:w-auto"
+        >
+          Nous écrire sur WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+/**
+ * Logo de l'ecole.
+ * Utilise `src/assets/photos/logo.png` des que le fichier est fourni.
+ * En son absence, affiche un ecusson de remplacement aux couleurs de l'ecole
+ * (un cadre « Photo a venir » serait illisible a 32 px dans la barre du haut).
+ */
+import { Image } from 'astro:assets';
+import { photo } from '../lib/photos';
+
+interface Props {
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { class: classe = 'h-10 w-10', loading = 'eager' } = Astro.props;
+const source = photo('logo');
+---
+
+{
+  source ? (
+    <Image
+      src={source}
+      alt="Logo du Complexe Scolaire Sainte Famille"
+      widths={[64, 128]}
+      sizes="80px"
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      class={`${classe} object-contain`}
+    />
+  ) : (
+    <svg
+      class={classe}
+      viewBox="0 0 40 40"
+      role="img"
+      aria-label="Logo du Complexe Scolaire Sainte Famille"
+    >
+      <path
+        d="M20 2.5 35.5 7v14.3C35.5 29.4 29 35.4 20 37.8 11 35.4 4.5 29.4 4.5 21.3V7Z"
+        fill="#1e6b34"
+      />
+      <path d="M20 9.5v8.2M16.4 12.8h7.2" stroke="#f7d117" stroke-width="1.9" stroke-linecap="round" />
+      <text
+        aria-hidden="true"
+        x="20"
+        y="30.4"
+        text-anchor="middle"
+        fill="#ffffff"
+        font-family="Georgia, serif"
+        font-size="10.5"
+        font-weight="700"
+        letter-spacing="0.4"
+      >
+        SF
+      </text>
+    </svg>
+  )
+}

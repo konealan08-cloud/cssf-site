@@ -1,0 +1,234 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Photo from '../../components/Photo.astro';
+import CarteArticle from '../../components/CarteArticle.astro';
+import { dateEnFrancais } from '../../lib/dates';
+import { WHATSAPP_URL } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => data.publie);
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+// Les trois autres articles les plus recents, pour la suite de lecture.
+const autres = (await getCollection('articles', ({ data }) => data.publie))
+  .filter((autre) => autre.id !== article.id)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const isoDate = article.data.date.toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  titre={`${article.data.titre} — Complexe Scolaire Sainte Famille`}
+  description={article.data.chapeau}
+>
+  <article>
+    <!-- Titre de l'article -->
+    <header class="bg-vert-fonce text-white">
+      <div class="conteneur py-11 md:py-16">
+        <a
+          href="/#actualites"
+          class="monte monte-1 inline-flex items-center gap-1.5 text-sm font-medium text-white/70 transition-colors hover:text-white"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M19 12H6M11.5 6l-6 6 6 6" />
+          </svg>
+          Toutes les actualités
+        </a>
+
+        <p class="monte monte-2 mt-6 text-xs font-semibold tracking-[0.16em] text-dore-clair uppercase">
+          <time datetime={isoDate}>{dateEnFrancais(article.data.date)}</time>
+        </p>
+
+        <h1 class="monte monte-2 mt-3 max-w-4xl text-[1.625rem] leading-tight md:text-[2.75rem]">
+          {article.data.titre}
+        </h1>
+
+        <p class="monte monte-3 mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
+          {article.data.chapeau}
+        </p>
+      </div>
+    </header>
+
+    <div class="conteneur py-12 md:py-16">
+      <div class="mx-auto max-w-[760px]">
+        <!-- Photo de l'article -->
+        <figure class="anim overflow-hidden rounded-2xl">
+          <Photo
+            nom={article.data.photo ?? '__absente__'}
+            alt={article.data.photoAlt ?? article.data.titre}
+            largeurs={[640, 960, 1280]}
+            sizes="(max-width: 768px) 92vw, 760px"
+            ratio="16 / 10"
+            ajustement={article.data.photoEntiere ? 'entier' : 'couvrir'}
+            class={`w-full ${
+              article.data.photoEntiere
+                ? 'bg-creme object-contain p-3 md:p-5'
+                : 'aspect-[16/10] object-cover'
+            }`}
+          />
+        </figure>
+
+        <!-- Corps de l'article -->
+        <div class="anim prose-cssf mt-9" data-retard="1">
+          <Content />
+        </div>
+
+        {
+          article.data.source && (
+            <p class="anim mt-9 border-t border-black/10 pt-5 text-sm text-encre-faible">
+              Source : {article.data.source}
+            </p>
+          )
+        }
+
+        <div class="anim mt-10 rounded-2xl bg-creme p-6 md:p-8">
+          <h2 class="font-serif text-xl md:text-2xl">Intéressé par notre établissement ?</h2>
+          <p class="mt-2.5 texte-carte">
+            Écrivez-nous sur WhatsApp pour connaître les dates des tests de recrutement et les
+            pièces à fournir.
+          </p>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-vert mt-6">
+            Nous écrire sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autres actualités -->
+    {
+      autres.length > 0 && (
+        <section class="bg-creme py-12 md:py-16">
+          <div class="conteneur">
+            <h2 class="anim titre-section filet text-[1.5rem] md:text-[2rem]">
+              Autres actualités
+            </h2>
+            <div class="mt-9 grid gap-6 md:grid-cols-3">
+              {autres.map((autre, index) => (
+                <CarteArticle article={autre} retard={index + 1} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  /* Mise en forme du corps d'article, ecrite en Markdown. */
+  .prose-cssf {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-encre-douce);
+  }
+  @media (width >= 768px) {
+    .prose-cssf {
+      font-size: 1.125rem;
+    }
+  }
+  .prose-cssf :global(p) {
+    margin-block: 1.15em;
+  }
+  .prose-cssf :global(p:first-child) {
+    margin-top: 0;
+  }
+  .prose-cssf :global(strong) {
+    color: var(--color-encre);
+    font-weight: 600;
+  }
+  .prose-cssf :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    color: var(--color-encre);
+    margin-top: 2.1em;
+    margin-bottom: 0.65em;
+  }
+  @media (width >= 768px) {
+    .prose-cssf :global(h2) {
+      font-size: 1.625rem;
+    }
+  }
+  .prose-cssf :global(ul) {
+    margin-block: 1.15em;
+    padding-left: 0;
+    list-style: none;
+  }
+  .prose-cssf :global(ul li) {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-block: 0.45em;
+  }
+  .prose-cssf :global(ul li)::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background-color: var(--color-dore);
+  }
+  .prose-cssf :global(blockquote) {
+    margin-block: 1.6em;
+    padding: 1.1rem 1.35rem;
+    border-left: 3px solid var(--color-dore);
+    background-color: var(--color-creme);
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    color: var(--color-encre);
+  }
+  .prose-cssf :global(blockquote p) {
+    margin: 0;
+  }
+  /* Tableau : passe en defilement horizontal sur petit ecran, jamais de debordement */
+  .prose-cssf :global(table) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin-block: 1.6em;
+    font-size: 0.9375rem;
+  }
+  .prose-cssf :global(th),
+  .prose-cssf :global(td) {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgb(17 17 17 / 0.09);
+    white-space: nowrap;
+  }
+  .prose-cssf :global(th) {
+    font-weight: 600;
+    color: var(--color-encre);
+    background-color: var(--color-creme);
+  }
+  .prose-cssf :global(a) {
+    color: var(--color-vert);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

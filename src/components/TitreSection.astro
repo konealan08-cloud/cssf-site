@@ -1,0 +1,32 @@
+---
+interface Props {
+  /** Petite ligne en surtitre, au-dessus du titre. */
+  surtitre?: string;
+  titre: string;
+  /** Texte d'introduction sous le titre. */
+  intro?: string;
+  centre?: boolean;
+  /** Niveau de titre HTML, pour garder une hierarchie correcte. */
+  niveau?: 'h1' | 'h2';
+  class?: string;
+}
+
+const {
+  surtitre,
+  titre,
+  intro,
+  centre = false,
+  niveau: Titre = 'h2',
+  class: classe = '',
+} = Astro.props;
+---
+
+<div class:list={['anim', centre && 'mx-auto max-w-2xl text-center', classe]}>
+  {
+    surtitre && (
+      <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">{surtitre}</p>
+    )
+  }
+  <Titre class:list={['titre-section filet', centre && 'filet-centre']}>{titre}</Titre>
+  {intro && <p class="texte-courant mt-6">{intro}</p>}
+</div>

@@ -1,0 +1,65 @@
+---
+/**
+ * Barre de navigation : une seule barre de 52 px, collee en haut.
+ * Les 4 onglets restent visibles sur mobile comme sur ordinateur.
+ * Aucun menu burger, aucun menu deroulant.
+ */
+import { NAVIGATION } from '../lib/site';
+import LogoEcole from './LogoEcole.astro';
+
+const chemin = '/' + Astro.url.pathname.replace(/^\/+|\/+$/g, '') + '/';
+
+function estActif(href: string): boolean {
+  if (href === '/') return chemin === '//' || chemin === '/';
+  // Les pages d'articles restent rattachees a l'onglet Accueil.
+  return chemin.startsWith(href);
+}
+---
+
+<header
+  class="sticky top-0 z-50 h-[52px] w-full border-b border-black/5 bg-white shadow-[0_1px_3px_rgb(17_17_17_/_0.07)]"
+>
+  <div class="mx-auto flex h-[52px] w-full max-w-[1200px] items-center gap-2.5 px-3 md:gap-8 md:px-8">
+    <a
+      href="/"
+      class="shrink-0 rounded-sm transition-transform duration-300 hover:scale-105"
+      aria-label="Complexe Scolaire Sainte Famille — retour à l'accueil"
+    >
+      <LogoEcole class="h-8 w-8 md:h-10 md:w-10" />
+    </a>
+
+    <nav aria-label="Navigation principale" class="min-w-0 flex-1">
+      <ul class="flex items-center gap-2.5 xs:gap-4 md:gap-7">
+        {
+          NAVIGATION.map((onglet) => {
+            const actif = estActif(onglet.href);
+            return (
+              <li class="shrink-0">
+                <a
+                  href={onglet.href}
+                  aria-current={actif ? 'page' : undefined}
+                  class:list={[
+                    'relative flex h-[52px] items-center whitespace-nowrap text-sm leading-none transition-colors duration-200 md:text-base',
+                    actif ? 'font-bold text-vert' : 'font-medium text-encre hover:text-vert',
+                  ]}
+                >
+                  <span class="xs:hidden">{onglet.libelleCourt}</span>
+                  <span class="hidden xs:inline">{onglet.libelle}</span>
+                  {
+                    actif && (
+                      <span
+                        transition:name="onglet-actif"
+                        class="absolute inset-x-0 bottom-0 h-[3px] rounded-t-sm bg-vert"
+                        aria-hidden="true"
+                      />
+                    )
+                  }
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

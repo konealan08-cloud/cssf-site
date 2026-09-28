@@ -1,0 +1,54 @@
+---
+/**
+ * Mentions obtenues au BAC serie D 2026, en barres horizontales animees.
+ *
+ * Barres construites en HTML et CSS plutot qu'en SVG : les libelles et les
+ * chiffres restent alors a leur taille reelle quelle que soit la largeur de
+ * l'ecran, sans deformation ni texte minuscule sur mobile.
+ *
+ * Une seule serie, donc une seule teinte : le vert de l'ecole, decline du plus
+ * fonce (Tres Bien) au plus clair (Passable) pour rappeler l'ordre des mentions.
+ */
+const DONNEES = [
+  { nom: 'Très Bien', nombre: 3, couleur: '#134d25' },
+  { nom: 'Bien', nombre: 8, couleur: '#1e6b34' },
+  { nom: 'Assez Bien', nombre: 23, couleur: '#3f8f57' },
+  { nom: 'Passable', nombre: 54, couleur: '#74b189' },
+];
+
+const TOTAL = DONNEES.reduce((somme, mention) => somme + mention.nombre, 0);
+const MAXI = Math.max(...DONNEES.map((mention) => mention.nombre));
+---
+
+<figure class="anim">
+  <ul class="space-y-4 md:space-y-5">
+    {
+      DONNEES.map((mention) => (
+        <li>
+          <div class="flex items-baseline justify-between gap-3">
+            <span class="text-base font-semibold text-encre">{mention.nom}</span>
+            <span
+              class="texte-carte"
+              style="font-variant-numeric: tabular-nums"
+            >
+              <strong class="font-semibold text-encre">{mention.nombre}</strong>
+              <span class="text-encre-faible"> élève{mention.nombre > 1 ? 's' : ''}</span>
+            </span>
+          </div>
+
+          <div class="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-black/6">
+            <div
+              class="barre h-full rounded-full"
+              style={`width: ${((mention.nombre / MAXI) * 100).toFixed(1)}%; background-color: ${mention.couleur}`}
+            >
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <figcaption class="mt-6 border-t border-black/8 pt-4 text-[0.8125rem] leading-relaxed text-encre-faible">
+    Répartition des mentions des {TOTAL} admis au Baccalauréat série D, session 2026.
+  </figcaption>
+</figure>

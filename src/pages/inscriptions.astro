@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BandeauTitre from '../components/BandeauTitre.astro';
+import TitreSection from '../components/TitreSection.astro';
+import NousTrouver from '../components/NousTrouver.astro';
+import { CONTACT, FACEBOOK_URL, lienWhatsApp, WHATSAPP_URL } from '../lib/site';
+
+const classesSurTest = [
+  {
+    classe: '6e',
+    detail: 'Entrée au post-primaire, après le CM2.',
+  },
+  {
+    classe: '2nde C',
+    detail: 'Entrée dans la voie scientifique, vers le BAC série D.',
+  },
+  {
+    classe: '2nde A',
+    detail: 'Entrée dans la voie littéraire, vers le BAC série A.',
+  },
+];
+
+const horaires = [
+  { moment: 'Matinée', plage: '7h00 – 12h00' },
+  { moment: 'Après-midi', plage: '15h00 – 17h00 ou 18h00', note: 'selon les classes' },
+];
+---
+
+<BaseLayout
+  titre="Inscriptions — Complexe Scolaire Sainte Famille, Pissy Ouagadougou"
+  description="Inscriptions au Complexe Scolaire Sainte Famille à Pissy, Ouagadougou. Admission sur test de recrutement en 6e, 2nde C et 2nde A. Contactez-nous sur WhatsApp au +226 51 77 01 66."
+>
+  <BandeauTitre
+    titre="Inscriptions"
+    intro="Rejoindre le Complexe Scolaire Sainte Famille, c'est choisir un cadre exigeant et bienveillant pour votre enfant."
+  />
+
+  <!-- ============ Admission sur test ============ -->
+  <section class="section" id="admission">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Comment entrer à l'école"
+        titre="Admission sur test de recrutement"
+        intro="L'entrée se fait par un test de recrutement pour les trois classes charnières du parcours."
+        centre
+      />
+
+      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          classesSurTest.map((niveau, index) => (
+            <div
+              class="carte anim flex flex-col items-center px-5 py-8 text-center"
+              data-retard={index + 1}
+            >
+              <span
+                class="grid h-16 w-16 place-items-center rounded-full bg-vert-clair font-serif text-xl font-bold text-vert md:h-[72px] md:w-[72px] md:text-2xl"
+                aria-hidden="true"
+              >
+                {niveau.classe}
+              </span>
+              <h3 class="mt-5 text-lg md:text-xl">Classe de {niveau.classe}</h3>
+              <p class="mt-2.5 texte-carte">
+                {niveau.detail}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Horaires ============ -->
+  <section class="section bg-creme" id="horaires">
+    <div class="conteneur">
+      <div class="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
+        <div class="anim">
+          <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+            Organisation
+          </p>
+          <h2 class="titre-section filet">Les horaires des cours</h2>
+          <p class="texte-courant mt-6">
+            Les cours se déroulent en deux temps dans la journée. L'horaire de fin d'après-midi
+            varie selon les classes et le niveau.
+          </p>
+        </div>
+
+        <div class="anim" data-retard="1">
+          <ul class="divide-y divide-black/8 overflow-hidden rounded-2xl bg-white">
+            {
+              horaires.map((creneau) => (
+                <li class="flex flex-col gap-1 px-5 py-5 xs:flex-row xs:items-center xs:justify-between xs:gap-4 md:px-7 md:py-6">
+                  <span class="font-semibold text-encre">{creneau.moment}</span>
+                  <span class="text-right">
+                    <span
+                      class="font-serif text-lg text-vert md:text-xl"
+                      style="font-variant-numeric: tabular-nums"
+                    >
+                      {creneau.plage}
+                    </span>
+                    {creneau.note && (
+                      <span class="block text-[0.8125rem] text-encre-faible">{creneau.note}</span>
+                    )}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Dates, pièces et frais ============ -->
+  <section class="section" id="dossier">
+    <div class="conteneur">
+      <div
+        class="anim mx-auto max-w-3xl rounded-2xl border-2 border-vert/15 bg-vert-clair px-6 py-10 text-center md:px-12 md:py-14"
+      >
+        <p class="text-xs font-semibold tracking-[0.18em] text-vert uppercase">
+          Dates, pièces et frais
+        </p>
+        <h2 class="mt-4 text-[1.625rem] leading-tight text-vert-fonce md:text-[2.25rem]">
+          Les dates des tests, les pièces à fournir et les frais de scolarité : contactez-nous
+        </h2>
+        <p class="texte-courant mx-auto mt-5 max-w-xl">
+          Ces informations évoluent d'une année à l'autre. Le plus simple et le plus rapide est de
+          nous écrire directement sur WhatsApp : nous vous répondons avec les informations à jour
+          pour la classe qui vous intéresse.
+        </p>
+
+        <a
+          href={lienWhatsApp(
+            'Bonjour, je souhaite connaître les dates des tests, les pièces à fournir et les frais de scolarité au Complexe Scolaire Sainte Famille.',
+          )}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-vert mt-9 w-full px-8 py-4 text-base sm:w-auto md:text-lg"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.02.24-3.44-.72-2.91-1.15-4.73-4.17-4.87-4.37-.14-.19-1.15-1.53-1.15-2.92 0-1.39.73-2.07 1-2.36.26-.29.57-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.59.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.15.46.12.63-.07.17-.19.73-.85.93-1.15.19-.29.39-.24.65-.14.27.1 1.69.8 1.98.94.29.15.48.22.55.34.07.13.07.72-.17 1.4Z"
+            />
+          </svg>
+          Écrire sur WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Trois moyens de nous joindre ============ -->
+  <section class="section bg-creme" id="contact">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Nous joindre"
+        titre="Trois façons de nous contacter"
+        intro="Choisissez le moyen qui vous convient le mieux. Nous répondons du lundi au vendredi."
+        centre
+      />
+
+      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:gap-7">
+        <!-- WhatsApp : moyen principal -->
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener"
+          class="carte anim flex flex-col items-center border-2 border-vert/25 bg-white px-5 py-8 text-center"
+          data-retard="1"
+        >
+          <span class="grid h-14 w-14 place-items-center rounded-full bg-[#25d366] text-white">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.02.24-3.44-.72-2.91-1.15-4.73-4.17-4.87-4.37-.14-.19-1.15-1.53-1.15-2.92 0-1.39.73-2.07 1-2.36.26-.29.57-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.59.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.15.46.12.63-.07.17-.19.73-.85.93-1.15.19-.29.39-.24.65-.14.27.1 1.69.8 1.98.94.29.15.48.22.55.34.07.13.07.72-.17 1.4Z"
+              />
+            </svg>
+          </span>
+          <span class="mt-4 inline-block rounded-full bg-vert px-2.5 py-0.5 text-[0.6875rem] font-semibold tracking-wide text-white uppercase">
+            Le plus rapide
+          </span>
+          <h3 class="mt-3 text-lg md:text-xl">WhatsApp</h3>
+          <p
+            class="mt-1.5 text-base font-medium text-vert"
+            style="font-variant-numeric: tabular-nums"
+          >
+            {CONTACT.telephoneAffiche}
+          </p>
+          <p class="mt-2 texte-carte">
+            Écrivez-nous, même en dehors des heures de bureau.
+          </p>
+        </a>
+
+        <!-- Téléphone -->
+        <a
+          href={CONTACT.telephoneLien}
+          class="carte anim flex flex-col items-center px-5 py-8 text-center"
+          data-retard="2"
+        >
+          <span class="grid h-14 w-14 place-items-center rounded-full bg-bleu/10 text-bleu">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M15.6 21c-1.9 0-4.4-1.3-6.8-3.8C6.3 14.8 5 12.3 5 10.4c0-1 .4-1.6 1.2-2.4l.7-.7c.5-.5 1.2-.5 1.7 0l1.9 1.9c.5.5.5 1.2 0 1.7l-.6.6c-.3.3-.4.8-.1 1.2.4.6 1 1.4 1.8 2.2.8.8 1.6 1.4 2.2 1.8.4.3.9.2 1.2-.1l.6-.6c.5-.5 1.2-.5 1.7 0l1.9 1.9c.5.5.5 1.2 0 1.7l-.7.7c-.8.8-1.4 1.2-2.4 1.2Z"
+              />
+            </svg>
+          </span>
+          <h3 class="mt-7 text-lg md:text-xl">Appeler</h3>
+          <p
+            class="mt-1.5 text-base font-medium text-bleu"
+            style="font-variant-numeric: tabular-nums"
+          >
+            {CONTACT.telephoneAffiche}
+          </p>
+          <p class="mt-2 texte-carte">
+            Du lundi au vendredi, pendant les heures de cours.
+          </p>
+        </a>
+
+        <!-- E-mail -->
+        <a
+          href={CONTACT.emailLien}
+          class="carte anim flex flex-col items-center px-5 py-8 text-center"
+          data-retard="3"
+        >
+          <span class="grid h-14 w-14 place-items-center rounded-full bg-bordeaux/10 text-bordeaux">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.9"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2.8" y="5" width="18.4" height="14" rx="2.4" />
+              <path d="m3.4 6.6 8.6 6 8.6-6" />
+            </svg>
+          </span>
+          <h3 class="mt-7 text-lg md:text-xl">E-mail</h3>
+          <p class="mt-1.5 text-base font-medium break-all text-bordeaux">
+            {CONTACT.email}
+          </p>
+          <p class="mt-2 texte-carte">
+            Pour les demandes détaillées et l'envoi de documents.
+          </p>
+        </a>
+      </div>
+
+      {
+        FACEBOOK_URL && (
+          <p class="anim mt-9 texte-carte text-center">
+            Retrouvez aussi l'actualité de l'école sur
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener"
+              class="font-semibold text-bleu underline underline-offset-4 transition-colors hover:text-vert"
+            >
+              notre page Facebook
+            </a>.
+          </p>
+        )
+      }
+      <!--
+        A COMPLETER : le lien de la page Facebook de l'ecole.
+        Renseigner la constante FACEBOOK_URL dans src/lib/site.ts.
+        Tant qu'elle reste vide, aucun lien Facebook n'apparait sur le site
+        (ni ici, ni dans le pied de page) : il n'y a donc jamais de lien mort.
+      -->
+    </div>
+  </section>
+
+  <!-- ============ Nous trouver ============ -->
+  <NousTrouver />
+</BaseLayout>

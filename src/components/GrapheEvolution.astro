@@ -1,0 +1,257 @@
+---
+/**
+ * Evolution des taux de reussite de 2021 a 2026.
+ * SVG inline, sans aucune librairie. Les courbes se tracent a l'apparition.
+ *
+ * Trois reperes rendent les series lisibles sans dependre de la couleur seule :
+ * une legende, une forme de marqueur propre a chaque serie (rond, carre,
+ * triangle) et un tableau de donnees depliable.
+ */
+const ANNEES = [2021, 2022, 2023, 2024, 2025, 2026];
+
+const SERIES = [
+  {
+    cle: 'bepc',
+    nom: 'BEPC',
+    couleur: '#1e6b34',
+    forme: 'rond' as const,
+    valeurs: [94.68, 98.49, 100, 96.83, 97.34, 98.9],
+  },
+  {
+    cle: 'bacd',
+    nom: 'BAC série D',
+    couleur: '#3560c9',
+    forme: 'carre' as const,
+    valeurs: [92.42, 95, 94.8, 91.66, 96.42, 93.62],
+  },
+  {
+    cle: 'baca',
+    // Dore assombri : les trois series restent distinguables par les daltoniens
+    // et chacune garde un contraste suffisant sur le fond blanc.
+    nom: 'BAC série A',
+    couleur: '#9a7a14',
+    forme: 'triangle' as const,
+    valeurs: [100, 100, 100, 100, 100, 100],
+  },
+];
+
+// Geometrie du graphique
+const L = 720;
+const H = 336;
+const MARGE = { haut: 18, droite: 44, bas: 38, gauche: 46 };
+const X0 = MARGE.gauche;
+const X1 = L - MARGE.droite;
+const Y0 = MARGE.haut;
+const Y1 = H - MARGE.bas;
+
+// Echelle verticale volontairement resserree sur 88-100 % : les ecarts entre
+// sessions sont faibles et seraient invisibles sur une echelle partant de zero.
+// Cette troncature est signalee sous le graphique.
+const MIN = 88;
+const MAX = 100;
+
+const x = (index: number) => X0 + (index * (X1 - X0)) / (ANNEES.length - 1);
+const y = (valeur: number) => Y1 - ((valeur - MIN) / (MAX - MIN)) * (Y1 - Y0);
+
+const GRADUATIONS = [90, 95, 100];
+
+const fr = (valeur: number) =>
+  valeur.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+const chemin = (valeurs: number[]) =>
+  valeurs.map((valeur, index) => `${index === 0 ? 'M' : 'L'}${x(index).toFixed(1)},${y(valeur).toFixed(1)}`).join(' ');
+
+/** Marqueur : une forme differente par serie, pour ne jamais dependre de la couleur. */
+function marqueur(forme: 'rond' | 'carre' | 'triangle', cx: number, cy: number): string {
+  if (forme === 'carre') return `M${cx - 4.2},${cy - 4.2}h8.4v8.4h-8.4Z`;
+  if (forme === 'triangle') return `M${cx},${cy - 5.2}L${cx + 5},${cy + 3.7}L${cx - 5},${cy + 3.7}Z`;
+  // Rond, dessine en arcs pour rester dans un seul <path>
+  return `M${cx - 4.6},${cy}a4.6,4.6 0 1,0 9.2,0a4.6,4.6 0 1,0 -9.2,0`;
+}
+---
+
+<figure class="anim">
+  <!-- Légende, qui porte aussi la valeur de la dernière session -->
+  <ul class="flex flex-wrap gap-x-6 gap-y-3">
+    {
+      SERIES.map((serie) => (
+        <li class="flex items-center gap-2.5">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" class="shrink-0">
+            <path d={marqueur(serie.forme, 8, 8)} fill={serie.couleur} />
+          </svg>
+          <span class="text-sm font-semibold text-encre">{serie.nom}</span>
+          <span class="text-sm text-encre-faible" style="font-variant-numeric: tabular-nums">
+            {fr(serie.valeurs[serie.valeurs.length - 1])} % en 2026
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-6 overflow-hidden">
+    <svg
+      viewBox={`0 0 ${L} ${H}`}
+      class="h-auto w-full"
+      role="img"
+      aria-labelledby="graphe-titre graphe-desc"
+    >
+      <title id="graphe-titre">
+        Évolution des taux de réussite aux examens de 2021 à 2026
+      </title>
+      <desc id="graphe-desc">
+        Le taux de réussite au BAC série A est de 100 % chaque année depuis 2021. Le BEPC progresse
+        de 94,68 % en 2021 à 98,90 % en 2026. Le BAC série D passe de 92,42 % en 2021 à 93,62 % en
+        2026. Les valeurs détaillées figurent dans le tableau situé sous le graphique.
+      </desc>
+
+      <!-- Grille horizontale, volontairement discrète -->
+      {
+        GRADUATIONS.map((valeur) => (
+          <>
+            <line
+              x1={X0}
+              x2={X1}
+              y1={y(valeur)}
+              y2={y(valeur)}
+              stroke="#111111"
+              stroke-opacity="0.09"
+              stroke-width="1"
+            />
+            <text
+              x={X0 - 10}
+              y={y(valeur)}
+              text-anchor="end"
+              dominant-baseline="middle"
+              font-size="12.5"
+              fill="#6b6c70"
+              font-family="Inter, system-ui, sans-serif"
+            >
+              {valeur} %
+            </text>
+          </>
+        ))
+      }
+
+      <!-- Années -->
+      {
+        ANNEES.map((annee, index) => (
+          <text
+            x={x(index)}
+            y={Y1 + 24}
+            text-anchor="middle"
+            font-size="12.5"
+            fill="#6b6c70"
+            font-family="Inter, system-ui, sans-serif"
+          >
+            {annee}
+          </text>
+        ))
+      }
+
+      <!-- Courbes -->
+      {
+        SERIES.map((serie) => (
+          <path
+            d={chemin(serie.valeurs)}
+            fill="none"
+            stroke={serie.couleur}
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="trace"
+            style="--longueur: 900"
+          />
+        ))
+      }
+
+      <!-- Marqueurs : anneau blanc pour rester lisibles quand deux séries se croisent -->
+      {
+        SERIES.map((serie) =>
+          serie.valeurs.map((valeur, index) => (
+            <g class="point-graphe">
+              <path
+                d={marqueur(serie.forme, x(index), y(valeur))}
+                fill={serie.couleur}
+                stroke="#ffffff"
+                stroke-width="2"
+              />
+              <title>{`${serie.nom} ${ANNEES[index]} : ${fr(valeur)} %`}</title>
+            </g>
+          )),
+        )
+      }
+    </svg>
+  </div>
+
+  <figcaption class="mt-4 text-[0.8125rem] leading-relaxed text-encre-faible">
+    Taux de réussite aux examens, sessions 2021 à 2026. Échelle verticale volontairement resserrée
+    de 88 à 100 % pour rendre les écarts lisibles.
+  </figcaption>
+
+  <!-- Les mêmes données sous forme de tableau, pour la lecture au clavier,
+       les lecteurs d'écran et l'impression. -->
+  <details class="group mt-5 rounded-xl border border-black/10 bg-white">
+    <summary
+      class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-vert md:px-5"
+    >
+      Voir les données chiffrées
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="shrink-0 transition-transform duration-300 group-open:rotate-180"
+        aria-hidden="true"
+      >
+        <path d="m6 9.5 6 6 6-6" />
+      </svg>
+    </summary>
+
+    <div class="overflow-x-auto border-t border-black/8 px-4 pb-4 md:px-5">
+      <table class="w-full min-w-[420px] border-collapse text-sm">
+        <caption class="sr-only">
+          Taux de réussite aux examens de 2021 à 2026, en pourcentage
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" class="py-3 pr-3 text-left font-semibold text-encre">Examen</th>
+            {
+              ANNEES.map((annee) => (
+                <th
+                  scope="col"
+                  class="py-3 px-2 text-right font-semibold text-encre"
+                  style="font-variant-numeric: tabular-nums"
+                >
+                  {annee}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            SERIES.map((serie) => (
+              <tr class="border-t border-black/8">
+                <th scope="row" class="py-2.5 pr-3 text-left font-medium text-encre-douce">
+                  {serie.nom}
+                </th>
+                {serie.valeurs.map((valeur) => (
+                  <td
+                    class="py-2.5 px-2 text-right text-encre-douce"
+                    style="font-variant-numeric: tabular-nums"
+                  >
+                    {fr(valeur)} %
+                  </td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>

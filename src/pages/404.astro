@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NAVIGATION } from '../lib/site';
+---
+
+<BaseLayout
+  titre="Page introuvable — Complexe Scolaire Sainte Famille"
+  description="La page demandée n'existe pas ou a été déplacée. Retrouvez l'accueil, l'école, les résultats et les inscriptions du Complexe Scolaire Sainte Famille."
+>
+  <section class="section">
+    <div class="conteneur">
+      <div class="mx-auto max-w-xl text-center">
+        <p class="font-serif text-[4rem] leading-none text-dore-texte md:text-[5.5rem]">404</p>
+        <h1 class="mt-5 text-[1.625rem] leading-tight md:text-[2.25rem]">Page introuvable</h1>
+        <p class="texte-courant mt-4">
+          La page que vous cherchez n'existe pas ou a été déplacée. Voici les pages du site :
+        </p>
+
+        <ul class="mt-8 flex flex-wrap justify-center gap-3">
+          {
+            NAVIGATION.map((onglet) => (
+              <li>
+                <a href={onglet.href} class="btn btn-contour">
+                  {onglet.libelle}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

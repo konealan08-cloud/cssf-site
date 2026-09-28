@@ -1,0 +1,95 @@
+---
+/**
+ * Affiche une photo optimisee (WebP, srcset, chargement differe).
+ * Si le fichier est absent de `src/assets/photos/`, affiche a la place
+ * un cadre sobre portant la mention « Photo a venir ».
+ */
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/photos';
+
+interface Props {
+  /** Nom du fichier sans extension, ex. « cour-interieure ». */
+  nom: string;
+  /** Texte alternatif. Obligatoire pour l'accessibilite. */
+  alt: string;
+  /** Largeurs generees pour le srcset. */
+  largeurs?: number[];
+  /** Valeur de l'attribut sizes. */
+  sizes?: string;
+  /** Classes appliquees a l'image (ou au cadre de remplacement). */
+  class?: string;
+  /** `eager` uniquement pour l'image visible d'emblee (banniere). */
+  loading?: 'lazy' | 'eager';
+  /** Rapport d'aspect du cadre de remplacement, ex. « 4 / 3 ». */
+  ratio?: string;
+  /** Position du sujet dans le cadre. */
+  position?: string;
+  /** Qualite de compression. */
+  quality?: number;
+  /**
+   * `couvrir` (par defaut) remplit le cadre en recadrant l'image.
+   * `entier` affiche l'image complete sans rien couper : a utiliser pour les
+   * documents et affiches, ou le moindre recadrage ferait disparaitre du texte.
+   */
+  ajustement?: 'couvrir' | 'entier';
+}
+
+const {
+  nom,
+  alt,
+  largeurs = [480, 768, 1024],
+  sizes = '(max-width: 768px) 100vw, 640px',
+  class: classe = '',
+  loading = 'lazy',
+  ratio = '4 / 3',
+  position = 'center',
+  quality = 72,
+  ajustement = 'couvrir',
+} = Astro.props;
+
+const source = photo(nom);
+const styleImage =
+  ajustement === 'entier'
+    ? 'object-fit: contain'
+    : `object-position: ${position}`;
+---
+
+{
+  source ? (
+    <Picture
+      src={source}
+      formats={['webp']}
+      widths={largeurs}
+      sizes={sizes}
+      alt={alt}
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+      quality={quality}
+      class={classe}
+      style={styleImage}
+    />
+  ) : (
+    <div
+      class={`flex flex-col items-center justify-center gap-2 bg-creme-fonce/70 text-encre-faible ${classe}`}
+      style={`aspect-ratio: ${ratio}`}
+      role="img"
+      aria-label={`${alt} — photo à venir`}
+    >
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+      >
+        <rect x="3" y="4.5" width="18" height="15" rx="2.5" />
+        <circle cx="8.5" cy="10" r="1.6" />
+        <path d="m3.5 17 5-4.6 4 3.4 3.5-2.8 4.5 4" />
+      </svg>
+      <span class="text-[0.8125rem] font-medium tracking-wide">Photo à venir</span>
+    </div>
+  )
+}

@@ -1,0 +1,60 @@
+---
+/** Adresse, carte Google Maps en chargement differe, et bouton Itineraire. */
+import { CONTACT, MAPS_ITINERAIRE_URL } from '../lib/site';
+import CarteMaps from './CarteMaps.astro';
+
+interface Props {
+  fond?: 'blanc' | 'creme';
+}
+
+const { fond = 'blanc' } = Astro.props;
+---
+
+<section class:list={['section', fond === 'creme' && 'bg-creme']} id="nous-trouver">
+  <div class="conteneur">
+    <div class="grid items-start gap-10 md:grid-cols-2 md:gap-14">
+      <div class="anim">
+        <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">Accès</p>
+        <h2 class="titre-section filet">Nous trouver</h2>
+
+        <address class="texte-courant mt-6 not-italic">
+          <strong class="font-semibold text-encre">{CONTACT.adresse}</strong><br />
+          {CONTACT.boitePostale}<br />
+          {CONTACT.ville}, {CONTACT.pays}
+        </address>
+
+        <div class="mt-7 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
+          <a
+            href={MAPS_ITINERAIRE_URL}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-vert"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" />
+              <circle cx="12" cy="10" r="2.6" />
+            </svg>
+            Itinéraire
+          </a>
+          <a href={CONTACT.telephoneLien} class="btn btn-contour">
+            Appeler l'école
+          </a>
+        </div>
+      </div>
+
+      <div class="anim" data-retard="1">
+        <CarteMaps class="shadow-sm" />
+      </div>
+    </div>
+  </div>
+</section>

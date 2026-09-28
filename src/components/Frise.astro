@@ -1,0 +1,51 @@
+---
+/** Frise chronologique. Le trait se remplit et les etapes apparaissent en cascade. */
+interface Etape {
+  date: string;
+  titre: string;
+  texte: string;
+}
+
+interface Props {
+  etapes: Etape[];
+}
+
+const { etapes } = Astro.props;
+---
+
+<ol class="anim relative mt-10 md:mt-14">
+  <!-- Trait vertical qui se remplit a l'apparition -->
+  <div
+    class="trait-frise absolute top-2 bottom-2 left-[7px] w-[2px] bg-gradient-to-b from-vert via-vert/55 to-dore/40 md:left-[calc(5.5rem+7px)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  {
+    etapes.map((etape, index) => (
+      <li
+        class="anim relative pb-9 pl-8 last:pb-0 md:grid md:grid-cols-[5.5rem_2rem_1fr] md:gap-0 md:pl-0"
+        data-retard={Math.min(index + 1, 5)}
+      >
+        <p class="hidden pt-0.5 pr-4 text-right font-serif text-base leading-tight text-dore-texte md:block">
+          {etape.date}
+        </p>
+
+        <div class="md:relative">
+          <span
+            class="absolute top-[7px] left-0 h-4 w-4 rounded-full border-[3px] border-white bg-vert shadow-[0_0_0_2px_rgb(30_107_52_/_0.25)] md:top-[7px] md:left-0"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div class="md:pl-2">
+          <p class="font-serif text-sm text-dore-texte md:hidden">{etape.date}</p>
+          <h3 class="mt-1 text-lg leading-snug md:mt-0 md:text-xl">{etape.titre}</h3>
+          <p class="mt-2 texte-carte">
+            {etape.texte}
+          </p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

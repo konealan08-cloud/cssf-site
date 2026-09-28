@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Photo from './Photo.astro';
+import { dateEnFrancais } from '../lib/dates';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  retard?: number;
+}
+
+const { article, retard } = Astro.props;
+const lien = `/actualites/${article.id}/`;
+---
+
+{/*
+  Toute la carte est cliquable : le lien du titre est « etire » par un
+  pseudo-element qui recouvre la carte entiere, image et « Lire la suite »
+  compris. Un seul lien existe donc pour les lecteurs d'ecran, et le texte
+  reste selectionnable a la souris.
+*/}
+<article class="carte anim relative flex h-full flex-col" data-retard={retard}>
+  <div class="overflow-hidden">
+    <Photo
+      nom={article.data.photo ?? '__absente__'}
+      alt={article.data.photoAlt ?? article.data.titre}
+      largeurs={[400, 640, 800]}
+      sizes="(max-width: 768px) 92vw, 380px"
+      ratio="16 / 10"
+      ajustement={article.data.photoEntiere ? 'entier' : 'couvrir'}
+      class={`carte-zoom aspect-[16/10] w-full ${
+        article.data.photoEntiere ? 'bg-creme object-contain p-2' : 'object-cover'
+      }`}
+    />
+  </div>
+
+  <div class="flex flex-1 flex-col p-5 md:p-6">
+    <time
+      datetime={article.data.date.toISOString().slice(0, 10)}
+      class="text-xs font-semibold tracking-wide text-dore-texte uppercase"
+    >
+      {dateEnFrancais(article.data.date)}
+    </time>
+
+    <h3 class="mt-2.5 text-lg leading-snug md:text-xl">
+      <a href={lien} class="lien-etire transition-colors hover:text-vert">
+        {article.data.titre}
+      </a>
+    </h3>
+
+    <p class="mt-3 texte-carte">{article.data.chapeau}</p>
+
+    <span
+      class="mt-5 inline-flex items-center gap-1.5 self-start pt-1 text-sm font-semibold text-vert"
+      aria-hidden="true"
+    >
+      Lire la suite
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h13M12.5 6l6 6-6 6" />
+      </svg>
+    </span>
+  </div>
+</article>

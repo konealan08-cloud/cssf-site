@@ -1,0 +1,81 @@
+---
+/**
+ * Carte Google Maps en chargement differe reel.
+ *
+ * Google Maps fait telecharger pres de 450 ko de scripts. Les charger d'office
+ * penaliserait lourdement les visiteurs en 3G, alors que peu d'entre eux
+ * ouvrent la carte. La carte n'est donc chargee qu'au moment ou l'on clique.
+ * Le bouton « Itineraire », lui, fonctionne sans rien charger.
+ */
+import { CONTACT, MAPS_EMBED_URL } from '../lib/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: classe = '' } = Astro.props;
+---
+
+<div
+  class={`carte-maps relative overflow-hidden rounded-2xl border border-black/10 bg-creme ${classe}`}
+  data-embed={MAPS_EMBED_URL}
+>
+  <button
+    type="button"
+    class="groupe-maps flex h-[300px] w-full flex-col items-center justify-center gap-3 px-6 text-center transition-colors duration-300 hover:bg-creme-fonce md:h-[380px]"
+  >
+    <span class="grid h-14 w-14 place-items-center rounded-full bg-vert text-white shadow-md">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.9"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" />
+        <circle cx="12" cy="10" r="2.6" />
+      </svg>
+    </span>
+    <span class="font-serif text-lg text-encre md:text-xl">Afficher la carte</span>
+    <span class="max-w-xs text-base leading-relaxed text-encre-douce">
+      {CONTACT.adresse}
+    </span>
+    <span class="mt-1 text-sm text-encre-faible">
+      La carte se charge en un clic, pour économiser vos données.
+    </span>
+  </button>
+</div>
+
+<script>
+  /** Remplace la facade par la vraie carte au premier clic. */
+  function activerCartes() {
+    document.querySelectorAll<HTMLElement>('.carte-maps').forEach((bloc) => {
+      const bouton = bloc.querySelector('button');
+      if (!bouton || bloc.dataset.pret === 'oui') return;
+      bloc.dataset.pret = 'oui';
+
+      bouton.addEventListener(
+        'click',
+        () => {
+          const cadre = document.createElement('iframe');
+          cadre.src = bloc.dataset.embed ?? '';
+          cadre.title =
+            'Carte de localisation du Complexe Scolaire Sainte Famille à Pissy, Ouagadougou';
+          cadre.loading = 'lazy';
+          cadre.referrerPolicy = 'no-referrer-when-downgrade';
+          cadre.allowFullscreen = true;
+          cadre.className = 'block h-[300px] w-full border-0 md:h-[380px]';
+          bloc.replaceChildren(cadre);
+        },
+        { once: true },
+      );
+    });
+  }
+
+  activerCartes();
+  document.addEventListener('astro:page-load', activerCartes);
+</script>

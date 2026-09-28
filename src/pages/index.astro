@@ -1,0 +1,293 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Photo from '../components/Photo.astro';
+import CarteChiffre from '../components/CarteChiffre.astro';
+import CarteArticle from '../components/CarteArticle.astro';
+import TitreSection from '../components/TitreSection.astro';
+import { ECOLE, lienWhatsApp, WHATSAPP_URL } from '../lib/site';
+
+const articles = (await getCollection('articles', ({ data }) => data.publie)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const chiffres = [
+  { valeur: 98.9, decimales: 2, suffixe: ' %', libelle: 'BEPC 2026' },
+  { valeur: 100, suffixe: ' %', libelle: 'BAC série A, depuis 2021' },
+  { valeur: 93.62, decimales: 2, suffixe: ' %', libelle: 'BAC série D 2026' },
+  { valeur: 100, suffixe: ' %', libelle: 'CEP 2026' },
+];
+
+const piliers = [
+  {
+    titre: 'Foi',
+    photo: 'messe-communion',
+    alt: 'Célébration de la messe au Complexe Scolaire Sainte Famille',
+    texte: 'Une vie pastorale qui accompagne chaque élève, dans le respect de sa conscience.',
+  },
+  {
+    titre: 'Excellence',
+    photo: 'laureats-prix',
+    alt: 'Lauréats récompensés lors de la Journée du mérite',
+    texte: 'Un encadrement exigeant, des résultats reconnus à chaque session d\'examen.',
+  },
+  {
+    titre: 'Culture',
+    photo: 'tenues-traditionnelles',
+    alt: 'Élèves en tenues traditionnelles burkinabè lors d\'une journée culturelle',
+    texte: 'La fierté des traditions burkinabè, célébrée tout au long de l\'année scolaire.',
+  },
+];
+---
+
+<BaseLayout
+  titre="Complexe Scolaire Sainte Famille — École catholique à Pissy, Ouagadougou"
+  description="École catholique tenue par les Frères de la Sainte Famille à Pissy, Ouagadougou. Du CP à la Terminale depuis 2001. 98,90 % au BEPC 2026 et 100 % au BAC série A depuis 2021."
+  accueil
+>
+  <!-- ============ 1. Bannière ============ -->
+  <section class="relative h-[70svh] min-h-[430px] w-full overflow-hidden md:h-[80vh] md:min-h-[520px]">
+    <div class="absolute inset-0">
+      <Photo
+        nom="cour-interieure"
+        alt="La cour intérieure du Complexe Scolaire Sainte Famille à Pissy"
+        largeurs={[480, 688]}
+        sizes="100vw"
+        loading="eager"
+        quality={68}
+        ratio="4 / 3"
+        class="ken-burns h-full w-full object-cover"
+        position="center 62%"
+      />
+    </div>
+
+    <!-- Léger dégradé sombre en bas, pour la lisibilité du texte -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/78 via-black/28 to-black/5"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="conteneur relative flex h-full flex-col justify-end pb-8 md:pb-14">
+      <h1
+        class="monte monte-1 max-w-[19ch] text-[1.875rem] leading-[1.1] text-white drop-shadow-sm xs:text-[2.125rem] md:max-w-[22ch] md:text-[3.5rem]"
+      >
+        {ECOLE.nom}
+      </h1>
+
+      <p
+        class="monte monte-2 mt-3 text-[0.8125rem] font-medium tracking-[0.14em] text-white/90 uppercase md:mt-4 md:text-sm"
+      >
+        {ECOLE.devise}
+      </p>
+
+      <div class="monte monte-3 mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap md:mt-9">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-vert w-full sm:w-auto"
+        >
+          Inscrire mon enfant
+        </a>
+        <a href="/resultats/" class="btn btn-blanc w-full sm:w-auto"> Voir nos résultats </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. Chiffres clés ============ -->
+  <section class="bg-creme py-12 md:py-16" aria-labelledby="titre-chiffres">
+    <div class="conteneur">
+      <h2 id="titre-chiffres" class="sr-only">Nos résultats en chiffres</h2>
+
+      <div class="grid grid-cols-2 gap-x-3 gap-y-2 md:grid-cols-5 md:gap-6">
+        {
+          chiffres.map((chiffre, index) => (
+            <CarteChiffre
+              valeur={chiffre.valeur}
+              decimales={chiffre.decimales}
+              suffixe={chiffre.suffixe}
+              libelle={chiffre.libelle}
+              retard={Math.min(index, 5)}
+            />
+          ))
+        }
+        <div class="col-span-2 md:col-span-1">
+          <CarteChiffre texteFixe="2001" libelle="L'école accueille des élèves depuis" retard={4} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. Présentation ============ -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+        <div class="anim">
+          <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+            Notre établissement
+          </p>
+          <h2 class="titre-section filet">Une école catholique au cœur de Pissy</h2>
+
+          <div class="texte-courant mt-6 space-y-4">
+            <p>
+              Le Complexe Scolaire Sainte Famille est tenu par les <strong
+                class="font-semibold text-encre">Frères de la Sainte Famille</strong
+              >, congrégation fondée en 1835 par le Frère Gabriel Taborin. Nos classes ont ouvert en
+              octobre 2001, au quartier Pissy.
+            </p>
+            <p>
+              Nous accueillons les élèves <strong class="font-semibold text-encre"
+                >du CP à la Terminale</strong
+              > : primaire, post-primaire jusqu'au BEPC, puis secondaire général en séries
+              scientifique et littéraire.
+            </p>
+            <p>
+              Notre projet éducatif prend soin de l'intelligence, du cœur et de la foi de chaque
+              enfant, dans un cadre à la fois exigeant et bienveillant.
+            </p>
+          </div>
+
+          <a href="/ecole/" class="btn btn-contour mt-8"> Découvrir l'école </a>
+        </div>
+
+        <div class="anim" data-retard="1">
+          <div class="overflow-hidden rounded-2xl shadow-[0_22px_50px_-28px_rgb(17_17_17_/_0.45)]">
+            <Photo
+              nom="messe-communion"
+              alt="Célébration de la messe avec les élèves du Complexe Scolaire Sainte Famille"
+              largeurs={[480, 768, 1024]}
+              sizes="(max-width: 768px) 92vw, 560px"
+              ratio="4 / 3"
+              class="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Les trois piliers ============ -->
+  <section class="section bg-creme">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Notre projet éducatif"
+        titre="Trois piliers"
+        intro="Former des élèves complets : solides dans leurs connaissances, droits dans leur conduite, enracinés dans leur culture."
+        centre
+      />
+
+      <div class="mt-10 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          piliers.map((pilier, index) => (
+            <article class="carte anim group relative overflow-hidden" data-retard={index + 1}>
+              <Photo
+                nom={pilier.photo}
+                alt={pilier.alt}
+                largeurs={[400, 640, 800]}
+                sizes="(max-width: 768px) 92vw, 380px"
+                ratio="3 / 4"
+                class="carte-zoom aspect-[3/4] w-full object-cover md:aspect-[4/5]"
+              />
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/82 via-black/30 to-transparent"
+                aria-hidden="true"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <h3 class="text-xl tracking-wide text-white uppercase md:text-2xl">{pilier.titre}</h3>
+                <p class="mt-2 text-base leading-relaxed text-white/85">{pilier.texte}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. Actualités ============ -->
+  <section class="section" id="actualites">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="La vie de l'école"
+        titre="Actualités"
+        intro="Les moments forts de notre établissement, examens, célébrations et engagements."
+        centre
+      />
+
+      <div class="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        {articles.map((article, index) => <CarteArticle article={article} retard={(index % 4) + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. Mot du directeur (aperçu) ============ -->
+  <section class="section bg-creme">
+    <div class="conteneur">
+      <div class="anim mx-auto max-w-3xl text-center">
+        <div
+          class="mx-auto h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-[0_14px_34px_-18px_rgb(17_17_17_/_0.5)] md:h-32 md:w-32"
+        >
+          <Photo
+            nom="directeur"
+            alt="Portrait du Frère Séraphin YAMEOGO, Directeur du Complexe Scolaire Sainte Famille"
+            largeurs={[144, 256, 384]}
+            sizes="128px"
+            ratio="1 / 1"
+            class="h-full w-full object-cover"
+            position="center 28%"
+          />
+        </div>
+
+        <blockquote class="mt-7">
+          <p class="font-serif text-lg leading-relaxed text-encre md:text-2xl md:leading-[1.5]">
+            <span class="text-dore-texte" aria-hidden="true">«</span> Depuis 2001, nous formons de bons
+            citoyens dans la discipline, le travail et la fraternité. Au-delà des diplômes, nous
+            offrons à chaque enfant une éducation complète : l'intelligence, le cœur et la foi.
+            <span class="text-dore-texte" aria-hidden="true">»</span>
+          </p>
+          <footer class="mt-6">
+            <p class="font-semibold text-encre">Frère Séraphin YAMEOGO</p>
+            <p class="mt-0.5 text-sm text-encre-faible">
+              Directeur du Complexe Scolaire Sainte Famille
+            </p>
+          </footer>
+        </blockquote>
+
+        <a href="/ecole/#mot-du-directeur" class="btn btn-contour mt-8"> Lire la suite </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Appel à l'action ============ -->
+  <section class="bg-vert-fonce py-14 text-white md:py-20">
+    <div class="conteneur">
+      <div class="anim mx-auto max-w-2xl text-center">
+        <h2 class="text-[1.625rem] leading-tight md:text-[2.5rem]">
+          Donnez à votre enfant un cadre exigeant et bienveillant
+        </h2>
+        <p class="mt-4 text-base text-white/80 md:text-lg">
+          Écrivez-nous sur WhatsApp : nous vous répondons sur les dates des tests, les pièces à
+          fournir et les modalités d'inscription.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <a
+            href={lienWhatsApp(
+              'Bonjour, je souhaite des informations sur les inscriptions au Complexe Scolaire Sainte Famille.',
+            )}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-blanc w-full sm:w-auto"
+          >
+            Écrire sur WhatsApp
+          </a>
+          <a
+            href="/inscriptions/"
+            class="btn w-full border-2 border-white/45 text-white hover:bg-white/10 sm:w-auto"
+          >
+            Voir les inscriptions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

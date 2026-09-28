@@ -1,0 +1,26 @@
+---
+/**
+ * Chiffre qui s'anime de 0 jusqu'a sa valeur quand il entre a l'ecran.
+ * La valeur finale est ecrite dans le HTML : elle reste lisible sans JavaScript
+ * et par les moteurs de recherche.
+ */
+interface Props {
+  valeur: number;
+  /** Nombre de decimales, ex. 2 pour 98,90. */
+  decimales?: number;
+  suffixe?: string;
+  class?: string;
+}
+
+const { valeur, decimales = 0, suffixe = '', class: classe = '' } = Astro.props;
+
+const affichage = valeur.toLocaleString('fr-FR', {
+  minimumFractionDigits: decimales,
+  maximumFractionDigits: decimales,
+});
+---
+
+<span class={classe} style="font-variant-numeric: tabular-nums">
+  <span data-valeur={valeur} data-decimales={decimales}>{affichage}</span
+  >{suffixe && <span>{suffixe}</span>}
+</span>
