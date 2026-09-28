@@ -1,10 +1,16 @@
 ---
 /**
- * Affiche une photo optimisee (WebP, srcset, chargement differe).
+ * Affiche une photo optimisee (AVIF, repli WebP, srcset, chargement differe).
+ * L'AVIF pese 35 a 45 % de moins que le WebP pour un rendu equivalent : c'est
+ * lui que les telephones recents telechargent, les autres prennent le WebP.
+ *
+ * Les deux formats n'ont pas la meme echelle de qualite (un AVIF a 45 vaut
+ * a peu pres un WebP a 72). Le composant <Picture> d'Astro imposant la meme
+ * qualite a tous les formats, la balise <picture> est construite ici a la main.
  * Si le fichier est absent de `src/assets/photos/`, affiche a la place
  * un cadre sobre portant la mention « Photo a venir ».
  */
-import { Picture } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import { photo } from '../lib/photos';
 
 interface Props {
@@ -48,6 +54,16 @@ const {
 } = Astro.props;
 
 const source = photo(nom);
+
+/** Ecart d'echelle entre la qualite WebP et la qualite AVIF equivalente. */
+const ECART_AVIF = 27;
+
+const [avif, webp] = source
+  ? await Promise.all([
+      getImage({ src: source, format: 'avif', widths: largeurs, quality: quality - ECART_AVIF }),
+      getImage({ src: source, format: 'webp', widths: largeurs, quality }),
+    ])
+  : [];
 const styleImage =
   ajustement === 'entier'
     ? 'object-fit: contain'
@@ -56,19 +72,22 @@ const styleImage =
 
 {
   source ? (
-    <Picture
-      src={source}
-      formats={['webp']}
-      widths={largeurs}
-      sizes={sizes}
-      alt={alt}
-      loading={loading}
-      decoding={loading === 'eager' ? 'sync' : 'async'}
-      fetchpriority={loading === 'eager' ? 'high' : 'auto'}
-      quality={quality}
-      class={classe}
-      style={styleImage}
-    />
+    <picture>
+      <source srcset={avif!.srcSet.attribute} sizes={sizes} type="image/avif" />
+      <img
+        src={webp!.src}
+        srcset={webp!.srcSet.attribute}
+        sizes={sizes}
+        alt={alt}
+        width={webp!.attributes.width}
+        height={webp!.attributes.height}
+        loading={loading}
+        decoding={loading === 'eager' ? 'sync' : 'async'}
+        fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+        class={classe}
+        style={styleImage}
+      />
+    </picture>
   ) : (
     <div
       class={`flex flex-col items-center justify-center gap-2 bg-creme-fonce/70 text-encre-faible ${classe}`}

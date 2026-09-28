@@ -28,7 +28,7 @@
   --color-logo-jaune: #f7d117;
 
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --breakpoint-xs: 400px;
 
@@ -250,17 +250,30 @@
 /* Apparition au defilement : etat initial, puis classe .est-visible */
 .anim {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(12px);
   transition:
-    opacity 0.7s var(--ease-douce),
-    transform 0.7s var(--ease-douce);
+    opacity 0.45s var(--ease-douce),
+    transform 0.45s var(--ease-douce);
 }
 .anim.est-visible {
   opacity: 1;
   transform: none;
 }
+@media (width >= 768px) {
+  .anim {
+    transform: translateY(22px);
+    transition-duration: 0.7s;
+  }
+}
 
-/* Decalage en cascade pour les grilles */
+/* Decalage en cascade pour les grilles, sur ordinateur seulement :
+   sur mobile les cartes sont empilees, le decalage ne ferait que retarder
+   l'apparition du contenu pendant le defilement. */
+@media (width < 768px) {
+  .anim[data-retard] {
+    transition-delay: 0s;
+  }
+}
 .anim[data-retard='1'] {
   transition-delay: 0.09s;
 }
@@ -286,8 +299,13 @@
     transform: scale(1.13);
   }
 }
-.ken-burns {
-  animation: ken-burns 26s var(--ease-douce) forwards;
+/* Reserve a l'ordinateur : sur telephone, agrandir en continu une grande
+   photo pendant 26 s sollicite fortement la carte graphique et saccade le
+   defilement sur les appareils d'entree de gamme. */
+@media (width >= 768px) {
+  .ken-burns {
+    animation: ken-burns 26s var(--ease-douce) forwards;
+  }
 }
 
 /* Apparition du texte de la banniere */
@@ -314,23 +332,38 @@
   animation-delay: 0.49s;
 }
 
-/* Bouton WhatsApp flottant : pulsation toutes les quelques secondes */
+/* Bouton WhatsApp flottant : une onde s'en echappe toutes les 5 s.
+   L'onde est un pseudo-element anime uniquement en transform et opacity,
+   deux proprietes que le telephone anime sans redessiner la page (animer
+   directement l'ombre forcait un redessin a chaque image, en permanence). */
+.pulsation {
+  box-shadow: 0 6px 20px -6px rgb(17 17 17 / 0.45);
+}
+.pulsation::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: rgb(37 211 102 / 0.55);
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  animation: pulsation 5s ease-out infinite;
+}
 @keyframes pulsation {
   0%,
-  88%,
+  86% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
   100% {
-    box-shadow:
-      0 6px 20px -6px rgb(17 17 17 / 0.45),
-      0 0 0 0 rgb(37 211 102 / 0.55);
+    opacity: 0;
+    transform: scale(1.45);
   }
-  92% {
-    box-shadow:
-      0 6px 20px -6px rgb(17 17 17 / 0.45),
-      0 0 0 12px rgb(37 211 102 / 0);
-  }
-}
-.pulsation {
-  animation: pulsation 5s ease-out infinite;
 }
 
 /* Trace progressif des courbes du graphique */

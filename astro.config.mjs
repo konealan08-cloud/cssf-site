@@ -14,6 +14,16 @@ export default defineConfig({
    * SITE_URL permet de forcer une adresse a la main si besoin.
    */
   site: process.env.SITE_URL || process.env.URL || 'http://localhost:4321',
+  /**
+   * Prechargement des pages : des qu'un lien apparait a l'ecran, la page
+   * cible est telechargee en arriere-plan (HTML seul, quelques ko). Le clic
+   * affiche alors la page quasi instantanement. Astro desactive de lui-meme
+   * ce prechargement en mode « economie de donnees » et sur reseau 2G.
+   */
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
   vite: {
     plugins: [tailwindcss()],
   },
