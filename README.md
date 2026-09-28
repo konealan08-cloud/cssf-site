@@ -2,6 +2,10 @@
 
 Site officiel du Complexe Scolaire Sainte Famille (CSSF), quartier Pissy, Ouagadougou.
 
+- **Site en ligne :** https://cssf-bf.netlify.app
+- **Code source :** https://github.com/konealan08-cloud/cssf-site
+- **Tableau de bord Netlify :** https://app.netlify.com/projects/cssf-bf
+
 Site statique construit avec **Astro** et **Tailwind CSS**. Aucune base de données,
 aucun serveur à maintenir : le site se met en ligne gratuitement sur Netlify ou Vercel.
 
@@ -162,25 +166,29 @@ chaque série : le graphique se redessine tout seul.
 
 ## 5. Mettre le site en ligne
 
-### Option A — Netlify (recommandé, gratuit)
+Le site est **déjà en ligne** sur Netlify, relié au dépôt GitHub.
 
-1. Créez un compte sur [netlify.com](https://www.netlify.com).
-2. Envoyez ce dossier sur GitHub (ou glissez-le directement dans Netlify).
-3. Dans Netlify, cliquez sur **Add new site → Import an existing project**, puis
-   choisissez le dépôt.
-4. Netlify lit le fichier `netlify.toml` déjà présent et remplit tout seul :
-   - commande de build : `npm run build`
-   - dossier à publier : `dist`
-5. Cliquez sur **Deploy**. Le site est en ligne en deux à trois minutes.
+### Mettre le site à jour
 
-Sans GitHub, l'alternative la plus rapide :
+Il suffit d'envoyer vos modifications sur GitHub :
+
+```bash
+git add .
+git commit -m "Description de la modification"
+git push
+```
+
+Netlify reconstruit et republie le site tout seul, en deux à trois minutes.
+Vous pouvez suivre l'avancement sur https://app.netlify.com/projects/cssf-bf
+
+### Publier depuis votre ordinateur (sans passer par GitHub)
 
 ```bash
 npm run build
-npx netlify-cli deploy --prod --dir=dist
+npx netlify deploy --prod --dir=dist
 ```
 
-### Option B — Vercel (gratuit)
+### Repartir de zéro ailleurs (Vercel)
 
 1. Créez un compte sur [vercel.com](https://vercel.com).
 2. **Add New → Project**, choisissez le dépôt.

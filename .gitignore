@@ -7,3 +7,9 @@ dist/
 
 # Photos d origine fournies par l ecole (les versions utilisees sont dans src/assets/photos/)
 photo Cssf Site*/
+
+# Local Netlify folder
+.netlify
+
+# Etat local de la liaison Netlify (contient l identifiant du site)
+.netlify/
