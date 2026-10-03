@@ -11,7 +11,6 @@ Déposez ici les photos de l'école, en respectant **exactement** ces noms de fi
 | `laureats-prix`           | Pilier EXCELLENCE, page Résultats, article Journée du mérite |
 | `tenues-traditionnelles`  | Pilier CULTURE, page L'école                                 |
 | `sensibilisation-jeppc`   | Article JEPPC 2025                                           |
-| `directeur`               | Mot du directeur (recadré en rond automatiquement)           |
 | `resultats-bacd-2026`     | Article « Résultats du BAC D 2026 » (affiche, montrée entière) |
 | `don-pdi-2023`            | Article « Solidarité : dons aux PDI »                        |
 
@@ -23,7 +22,7 @@ en WebP, génère les tailles nécessaires (srcset) et le compresse au moment du
 
 Conseils :
 
-- privilégiez des photos en **paysage** (plus larges que hautes), sauf pour `directeur`
+- privilégiez des photos en **paysage** (plus larges que hautes)
   où un portrait convient mieux ;
 - une largeur d'au moins **1 600 px** est idéale pour la bannière `cour-interieure` ;
 - inutile de compresser vous-même, cela se fait automatiquement.

@@ -16,7 +16,7 @@ const { etapes } = Astro.props;
 <ol class="anim relative mt-10 md:mt-14">
   <!-- Trait vertical qui se remplit a l'apparition -->
   <div
-    class="trait-frise absolute top-2 bottom-2 left-[7px] w-[2px] bg-gradient-to-b from-vert via-vert/55 to-dore/40 md:left-[calc(5.5rem+7px)]"
+    class="trait-frise absolute top-2 bottom-2 left-[7px] w-[2px] bg-gradient-to-b from-vert via-vert/55 to-dore/40 md:left-[calc(6.75rem+7px)]"
     aria-hidden="true"
   >
   </div>
@@ -24,7 +24,7 @@ const { etapes } = Astro.props;
   {
     etapes.map((etape, index) => (
       <li
-        class="anim relative pb-9 pl-8 last:pb-0 md:grid md:grid-cols-[5.5rem_2rem_1fr] md:gap-0 md:pl-0"
+        class="anim relative pb-9 pl-8 last:pb-0 md:grid md:grid-cols-[6.75rem_2rem_1fr] md:gap-0 md:pl-0"
         data-retard={Math.min(index + 1, 5)}
       >
         <p class="hidden pt-0.5 pr-4 text-right font-serif text-base leading-tight text-dore-texte md:block">

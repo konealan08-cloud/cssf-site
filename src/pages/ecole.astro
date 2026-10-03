@@ -12,34 +12,29 @@ const etapes = [
   {
     date: '1835',
     titre: 'Fondation des Frères de la Sainte Famille',
-    texte: 'Le Frère Gabriel Taborin fonde la congrégation des Frères de la Sainte Famille.',
+    texte:
+      'Le Vénérable Frère Gabriel Taborin fonde la congrégation des Frères de la Sainte Famille.',
   },
   {
     date: '2000',
-    titre: 'Un projet offert au Burkina Faso',
+    titre: 'Un établissement offert au Burkina Faso',
     texte:
-      'La congrégation porte le projet d\'une école offerte au Burkina Faso, à l\'occasion du centenaire de l\'évangélisation du pays.',
+      "À l'occasion du jubilé des 100 ans d'évangélisation du Burkina Faso, la Congrégation décide d'offrir l'établissement.",
   },
   {
     date: 'Octobre 2001',
-    titre: 'Ouverture des classes',
-    texte: 'Les premières classes du Complexe Scolaire Sainte Famille accueillent leurs élèves.',
-  },
-  {
-    date: '12 janvier 2002',
-    titre: 'Inauguration de l\'établissement',
-    texte: 'L\'école est officiellement inaugurée au quartier Pissy.',
+    titre: 'Ouverture du Collège Sainte Famille',
+    texte: 'Le Collège Sainte Famille accueille ses premiers élèves à Pissy.',
   },
   {
     date: 'Novembre 2002',
     titre: 'Reconnaissance officielle',
-    texte: 'L\'établissement obtient sa reconnaissance officielle par les autorités.',
+    texte: "L'établissement obtient sa reconnaissance officielle par les autorités.",
   },
   {
-    date: 'Aujourd\'hui',
-    titre: 'Du CP à la Terminale',
-    texte:
-      'L\'école couvre tout le parcours scolaire, du cours préparatoire à la classe de Terminale.',
+    date: "Aujourd'hui",
+    titre: 'Le Complexe Scolaire Sainte Famille',
+    texte: "L'école couvre tout le parcours scolaire, du CP à la Terminale.",
   },
 ];
 
@@ -153,10 +148,23 @@ const vieScolaire = [
       <div class="md:grid md:grid-cols-[1fr_1.35fr] md:gap-16">
         <div>
           <TitreSection surtitre="Depuis 1835" titre="Notre histoire" />
-          <p class="texte-courant mt-6 md:pr-4">
-            De la fondation de la congrégation en France à l'ouverture des classes à Ouagadougou,
-            notre école est née d'un projet offert au Burkina Faso.
-          </p>
+          <div class="texte-courant mt-6 space-y-4 md:pr-4">
+            <p>
+              Le Complexe Scolaire Sainte Famille (CSSF) est un établissement catholique
+              d'enseignement général, situé à Pissy, au secteur 27 de l'arrondissement n°6 de
+              Ouagadougou. Il appartient à l'Institut des Frères de la Sainte Famille de Belley.
+            </p>
+            <p>
+              Construit sur 6 312 m², il a été offert par toute la Congrégation aux Frères de la
+              Province Sainte Anne du Burkina Faso, à l'occasion du jubilé des 100 ans
+              d'évangélisation du pays.
+            </p>
+            <p>
+              Ouvert en octobre 2001 sous le nom de Collège Sainte Famille, il est devenu le
+              Complexe Scolaire Sainte Famille pour accueillir les trois cycles : primaire,
+              post-primaire et secondaire.
+            </p>
+          </div>
         </div>
 
         <Frise etapes={etapes} />
@@ -168,29 +176,14 @@ const vieScolaire = [
   <section class="section bg-creme" id="mot-du-directeur">
     <div class="conteneur">
       <div class="mx-auto max-w-3xl">
-        <div class="anim flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-          <div
-            class="h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-[0_14px_34px_-18px_rgb(17_17_17_/_0.5)] md:h-28 md:w-28"
-          >
-            <Photo
-              nom="directeur"
-              alt="Portrait du Frère Séraphin YAMEOGO, Directeur du Complexe Scolaire Sainte Famille"
-              largeurs={[128, 224, 336]}
-              sizes="112px"
-              ratio="1 / 1"
-              class="h-full w-full object-cover"
-              position="center 28%"
-            />
-          </div>
-          <div>
-            <p class="text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
-              Mot du directeur
-            </p>
-            <h2 class="mt-2 text-[1.5rem] leading-tight md:text-[2rem]">Frère Séraphin YAMEOGO</h2>
-            <p class="mt-1 text-sm text-encre-faible">
-              Directeur du Complexe Scolaire Sainte Famille
-            </p>
-          </div>
+        <div class="anim">
+          <p class="text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
+            Mot du directeur
+          </p>
+          <h2 class="mt-2 text-[1.5rem] leading-tight md:text-[2rem]">Frère Séraphin YAMEOGO</h2>
+          <p class="mt-1 text-sm text-encre-faible">
+            Directeur du Complexe Scolaire Sainte Famille
+          </p>
         </div>
 
         <blockquote class="anim mt-9 space-y-5 md:mt-11" data-retard="1">

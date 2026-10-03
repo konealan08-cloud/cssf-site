@@ -36,7 +36,6 @@ export type NomPhoto =
   | 'laureats-prix'
   | 'tenues-traditionnelles'
   | 'sensibilisation-jeppc'
-  | 'directeur'
   | 'resultats-bacd-2026';
 
 /** Renvoie la photo demandee, ou `undefined` si le fichier n'a pas ete fourni. */

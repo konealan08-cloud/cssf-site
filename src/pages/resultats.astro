@@ -4,7 +4,6 @@ import BandeauTitre from '../components/BandeauTitre.astro';
 import TitreSection from '../components/TitreSection.astro';
 import Compteur from '../components/Compteur.astro';
 import Photo from '../components/Photo.astro';
-import GrapheMentions from '../components/GrapheMentions.astro';
 import GrapheEvolution from '../components/GrapheEvolution.astro';
 import { lienWhatsApp } from '../lib/site';
 
@@ -94,28 +93,6 @@ const resultats = [
         <p class="mt-4 text-base text-white/75 md:text-lg">
           De 2021 à 2026, tous nos candidats de la série littéraire ont obtenu leur Baccalauréat.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Mentions BAC D 2026 ============ -->
-  <section class="section" id="mentions">
-    <div class="conteneur">
-      <div class="grid gap-10 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:items-center md:gap-16">
-        <div class="anim">
-          <p class="mb-3 text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">
-            BAC série D 2026
-          </p>
-          <h2 class="titre-section filet">Les mentions obtenues</h2>
-          <p class="texte-courant mt-6">
-            Au-delà du taux de réussite, la répartition des mentions témoigne du niveau réel de nos
-            candidats. Onze d'entre eux ont décroché une mention Bien ou Très Bien.
-          </p>
-        </div>
-
-        <div class="rounded-2xl bg-creme p-6 md:p-9">
-          <GrapheMentions />
-        </div>
       </div>
     </div>
   </section>
