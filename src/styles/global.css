@@ -132,6 +132,27 @@
     }
   }
 
+  /* Paragraphes justifies (presentation, histoire, mot du directeur, valeurs,
+     articles). La cesure automatique, en francais grace a lang="fr", evite les
+     grands blancs entre les mots sur les colonnes etroites du mobile.
+     A ne pas appliquer aux titres, boutons, cartes courtes ni legendes. */
+  .texte-justifie,
+  .texte-justifie p {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    /* Ne coupe que les mots d'au moins 6 lettres, 3 avant et 2 apres la coupure */
+    hyphenate-limit-chars: 6 3 2;
+  }
+  /* Repli si le navigateur ne coupe pas les mots (classe posee dans BaseLayout) */
+  @media (width < 40rem) {
+    .sans-cesure .texte-justifie,
+    .sans-cesure .texte-justifie p,
+    .sans-cesure .prose-cssf p {
+      text-align: left;
+    }
+  }
+
   /* Texte a l'interieur des cartes et des blocs courts.
      Jamais sous 16 px, y compris sur mobile. */
   .texte-carte {

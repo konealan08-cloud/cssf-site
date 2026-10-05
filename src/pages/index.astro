@@ -42,7 +42,7 @@ const piliers = [
 
 <BaseLayout
   titre="Complexe Scolaire Sainte Famille — École catholique à Pissy, Ouagadougou"
-  description="École catholique tenue par les Frères de la Sainte Famille à Pissy, Ouagadougou. Du CP à la Terminale depuis 2001. 98,90 % au BEPC 2026 et 100 % au BAC série A depuis 2021."
+  description="École catholique tenue par les Frères de la Sainte Famille à Pissy, Ouagadougou. Du CP1 à la Terminale depuis 2001. 98,90 % au BEPC 2026 et 100 % au BAC série A depuis 2021."
   accueil
 >
   <!-- ============ 1. Bannière ============ -->
@@ -129,7 +129,7 @@ const piliers = [
           </p>
           <h2 class="titre-section filet">Une école catholique au cœur de Pissy</h2>
 
-          <div class="texte-courant mt-6 space-y-4">
+          <div class="texte-courant texte-justifie mt-6 space-y-4">
             <p>
               Le Complexe Scolaire Sainte Famille est tenu par les <strong
                 class="font-semibold text-encre">Frères de la Sainte Famille</strong
@@ -138,9 +138,9 @@ const piliers = [
             </p>
             <p>
               Nous accueillons les élèves <strong class="font-semibold text-encre"
-                >du CP à la Terminale</strong
-              > : primaire, post-primaire jusqu'au BEPC, puis secondaire général en séries
-              scientifique et littéraire.
+                >du CP1 à la Terminale</strong
+              > : primaire (CP1 – CM2), post-primaire (6e – 3e) jusqu'au BEPC, puis secondaire
+              général (2nde – Tle) en séries scientifique et littéraire.
             </p>
             <p>
               Notre projet éducatif prend soin de l'intelligence, du cœur et de la foi de chaque
@@ -161,6 +161,79 @@ const piliers = [
               ratio="4 / 3"
               class="aspect-[4/3] w-full object-cover"
             />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Jubilé d'argent (2001-2026) ============ -->
+  <section class="pb-16 md:pb-24" aria-labelledby="titre-jubile">
+    <div class="conteneur">
+      <div
+        class="anim overflow-hidden rounded-2xl border border-dore/35 bg-creme shadow-[0_22px_50px_-30px_rgb(126_100_16_/_0.45)]"
+      >
+        <div class="h-1.5 bg-gradient-to-r from-dore via-dore-clair to-dore" aria-hidden="true"></div>
+
+        <div class="grid gap-8 p-5 xs:p-6 md:grid-cols-[1fr_1.1fr] md:gap-12 md:p-10 lg:p-12">
+          <div class="flex flex-col justify-center">
+            <p
+              class="inline-flex items-center gap-2 self-start rounded-full border border-dore/50 bg-white px-3.5 py-1.5 text-xs font-semibold tracking-[0.14em] text-dore-texte uppercase"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-dore" aria-hidden="true"></span>
+              25 ans · 2001-2026
+            </p>
+
+            <h2 id="titre-jubile" class="mt-5 text-[1.625rem] leading-tight md:text-[2.25rem]">
+              Jubilé d'argent : 25 ans au service de l'éducation
+            </h2>
+            <div class="mt-4 h-[3px] w-14 rounded-full bg-dore" aria-hidden="true"></div>
+
+            <p class="texte-courant texte-justifie mt-5">
+              En octobre 2001, le Complexe Scolaire Sainte Famille ouvrait ses portes à Pissy, offert
+              par les Frères de la Sainte Famille du monde entier à l'occasion du centenaire de
+              l'évangélisation du Burkina Faso. Vingt-cinq ans plus tard, l'établissement a célébré
+              son jubilé d'argent dans l'action de grâce, fier des milliers d'élèves formés dans
+              l'esprit de sa devise : <strong class="font-semibold text-encre"
+                >Discipline – Travail – Fraternité</strong
+              >.
+            </p>
+          </div>
+
+          <!-- Photos de la célébration -->
+          <div class="grid grid-cols-2 gap-3 md:gap-4">
+            <figure class="relative col-span-2 overflow-hidden rounded-xl">
+              <Photo
+                nom="jubile-procession"
+                alt="Procession des servants de messe en aube blanche lors de la célébration du jubilé d'argent"
+                largeurs={[480, 768, 1024]}
+                sizes="(max-width: 768px) 92vw, 560px"
+                ratio="3 / 2"
+                position="center 40%"
+                class="aspect-[3/2] w-full object-cover"
+              />
+              <figcaption
+                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3 text-sm font-medium text-white"
+              >
+                La procession d'entrée
+              </figcaption>
+            </figure>
+            <figure class="relative col-span-2 overflow-hidden rounded-xl">
+              <Photo
+                nom="jubile-hostie"
+                alt="Le prêtre élève l'hostie pendant la messe d'action de grâce du jubilé"
+                largeurs={[480, 768, 1024]}
+                sizes="(max-width: 768px) 92vw, 560px"
+                ratio="16 / 9"
+                position="center 45%"
+                class="aspect-[16/9] w-full object-cover"
+              />
+              <figcaption
+                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3 text-sm font-medium text-white"
+              >
+                L'action de grâce
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>

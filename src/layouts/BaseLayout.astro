@@ -78,6 +78,24 @@ const donneesStructurees = {
     <meta name="theme-color" content="#1e6b34" />
     <meta name="robots" content="index, follow" />
 
+    <!-- Sans cesure francaise (certains navigateurs de bureau), le texte justifie
+         creuserait de grands blancs sur les colonnes etroites : la classe
+         `sans-cesure` le ramene alors a gauche sur petit ecran (voir global.css). -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        var t = document.createElement('div');
+        t.lang = 'fr';
+        t.style.cssText = 'position:absolute;visibility:hidden;width:4em;hyphens:auto;-webkit-hyphens:auto';
+        t.textContent = 'évangélisation';
+        d.appendChild(t);
+        var h = t.offsetHeight;
+        t.style.hyphens = t.style.webkitHyphens = 'manual';
+        if (t.offsetHeight === h) d.classList.add('sans-cesure');
+        d.removeChild(t);
+      })();
+    </script>
+
     <!-- Icones : le blason de l'ecole des qu'il est fourni, sinon l'ecusson de repli -->
     {
       logo ? (

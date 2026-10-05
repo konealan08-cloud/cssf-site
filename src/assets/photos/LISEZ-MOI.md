@@ -13,8 +13,10 @@ Déposez ici les photos de l'école, en respectant **exactement** ces noms de fi
 | `sensibilisation-jeppc`   | Article JEPPC 2025                                           |
 | `resultats-bacd-2026`     | Article « Résultats du BAC D 2026 » (affiche, montrée entière) |
 | `don-pdi-2023`            | Article « Solidarité : dons aux PDI »                        |
+| `jubile-procession`       | Encart Jubilé d'argent (Accueil), grande photo               |
+| `jubile-hostie`           | Encart Jubilé d'argent (Accueil)                             |
 
-Les huit photos sont en place. Tant qu'un fichier est absent, le site affiche à sa place un cadre sobre
+Les dix photos sont en place. Tant qu'un fichier est absent, le site affiche à sa place un cadre sobre
 « Photo à venir ». Rien ne casse, la mise en page reste intacte.
 
 Pas besoin de préparer les images : déposez le fichier d'origine, Astro le convertit

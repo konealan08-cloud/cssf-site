@@ -36,7 +36,9 @@ export type NomPhoto =
   | 'laureats-prix'
   | 'tenues-traditionnelles'
   | 'sensibilisation-jeppc'
-  | 'resultats-bacd-2026';
+  | 'resultats-bacd-2026'
+  | 'jubile-procession'
+  | 'jubile-hostie';
 
 /** Renvoie la photo demandee, ou `undefined` si le fichier n'a pas ete fourni. */
 export function photo(nom: string): ImageMetadata | undefined {

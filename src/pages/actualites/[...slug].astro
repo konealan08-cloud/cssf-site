@@ -151,6 +151,10 @@ const isoDate = article.data.date.toISOString().slice(0, 10);
   }
   .prose-cssf :global(p) {
     margin-block: 1.15em;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
   }
   .prose-cssf :global(p:first-child) {
     margin-top: 0;

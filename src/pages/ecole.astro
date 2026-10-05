@@ -32,9 +32,14 @@ const etapes = [
     texte: "L'établissement obtient sa reconnaissance officielle par les autorités.",
   },
   {
+    date: '2026',
+    titre: "Jubilé d'argent",
+    texte: "25 ans au service de l'éducation.",
+  },
+  {
     date: "Aujourd'hui",
     titre: 'Le Complexe Scolaire Sainte Famille',
-    texte: "L'école couvre tout le parcours scolaire, du CP à la Terminale.",
+    texte: "L'école couvre tout le parcours scolaire, du CP1 à la Terminale.",
   },
 ];
 
@@ -87,21 +92,21 @@ const symboles = [
 const formations = [
   {
     titre: 'Primaire',
-    niveaux: 'CP1 à CM2',
+    niveaux: 'CP1 – CM2',
     texte:
       'Les fondations : lire, écrire, compter, et prendre de bonnes habitudes de travail dès les premières années.',
     examen: 'Examen : CEP',
   },
   {
     titre: 'Post-primaire',
-    niveaux: '6e à 3e',
+    niveaux: '6e – 3e',
     texte:
       'Le collège, où les élèves consolident leurs acquis et se préparent progressivement au choix d\'une série.',
     examen: 'Examen : BEPC',
   },
   {
     titre: 'Secondaire général',
-    niveaux: '2nde à Terminale',
+    niveaux: '2nde – Tle',
     texte: 'Deux parcours au choix, scientifique ou littéraire, jusqu\'au Baccalauréat.',
     examen: 'Examen : Baccalauréat',
   },
@@ -135,11 +140,11 @@ const vieScolaire = [
 
 <BaseLayout
   titre="L'école — Complexe Scolaire Sainte Famille, Pissy Ouagadougou"
-  description="Histoire, valeurs, blason et formations du Complexe Scolaire Sainte Famille : une école catholique tenue par les Frères de la Sainte Famille à Pissy, du CP à la Terminale depuis 2001."
+  description="Histoire, valeurs, blason et formations du Complexe Scolaire Sainte Famille : une école catholique tenue par les Frères de la Sainte Famille à Pissy, du CP1 à la Terminale depuis 2001."
 >
   <BandeauTitre
     titre="Notre école"
-    intro="Une école catholique tenue par les Frères de la Sainte Famille, ouverte en 2001 au quartier Pissy, qui accompagne les élèves du CP à la Terminale."
+    intro="Le CSSF est une école catholique des Frères de la Sainte Famille, ouverte en octobre 2001 au secteur 27 de Ouagadougou, quartier Pissy. Le Complexe Scolaire accompagne les élèves du CP1 à la Terminale."
   />
 
   <!-- ============ Notre histoire ============ -->
@@ -148,7 +153,7 @@ const vieScolaire = [
       <div class="md:grid md:grid-cols-[1fr_1.35fr] md:gap-16">
         <div>
           <TitreSection surtitre="Depuis 1835" titre="Notre histoire" />
-          <div class="texte-courant mt-6 space-y-4 md:pr-4">
+          <div class="texte-courant texte-justifie mt-6 space-y-4 md:pr-4">
             <p>
               Le Complexe Scolaire Sainte Famille (CSSF) est un établissement catholique
               d'enseignement général, situé à Pissy, au secteur 27 de l'arrondissement n°6 de
@@ -161,8 +166,8 @@ const vieScolaire = [
             </p>
             <p>
               Ouvert en octobre 2001 sous le nom de Collège Sainte Famille, il est devenu le
-              Complexe Scolaire Sainte Famille pour accueillir les trois cycles : primaire,
-              post-primaire et secondaire.
+              Complexe Scolaire Sainte Famille pour accueillir les trois cycles : primaire (CP1 –
+              CM2), post-primaire (6e – 3e) et secondaire (2nde – Tle).
             </p>
           </div>
         </div>
@@ -186,11 +191,11 @@ const vieScolaire = [
           </p>
         </div>
 
-        <blockquote class="anim mt-9 space-y-5 md:mt-11" data-retard="1">
+        <blockquote class="anim texte-justifie mt-9 space-y-5 md:mt-11" data-retard="1">
           <p class="texte-courant">Chers parents, chers élèves, chers amis,</p>
           <p class="texte-courant">
             Depuis 2001, le Complexe Scolaire Sainte Famille accompagne les enfants de Pissy et de
-            Ouagadougou, du CP à la Terminale. Fidèles à l'héritage du Frère Gabriel Taborin,
+            Ouagadougou, du CP1 à la Terminale. Fidèles à l'héritage du Frère Gabriel Taborin,
             fondateur des Frères de la Sainte Famille, nous poursuivons une même mission : former de
             bons citoyens pour la société, capables de servir leur pays avec compétence et intégrité.
           </p>
@@ -208,8 +213,9 @@ const vieScolaire = [
             prend soin de son intelligence, de son cœur et de sa foi.
           </p>
           <p class="texte-courant">
-            À vous, parents, qui cherchez pour votre enfant un cadre exigeant et bienveillant, je
-            dis : soyez les bienvenus dans la famille de la Sainte Famille.
+            À vous, chers parents, qui cherchez pour vos enfants un cadre éducatif exigeant et
+            bienveillant : vous êtes les bienvenus au sein de la communauté éducative de la Sainte
+            Famille.
           </p>
 
           <footer class="border-l-[3px] border-dore pl-4 pt-1">
@@ -244,7 +250,7 @@ const vieScolaire = [
                 {String(index + 1).padStart(2, '0')}
               </span>
               <h3 class="mt-4 text-xl md:text-2xl">{valeur.titre}</h3>
-              <p class="mt-3 texte-carte">{valeur.texte}</p>
+              <p class="mt-3 texte-carte texte-justifie">{valeur.texte}</p>
             </div>
           ))
         }
@@ -316,7 +322,7 @@ const vieScolaire = [
   <section class="section" id="formations">
     <div class="conteneur">
       <TitreSection
-        surtitre="Du CP à la Terminale"
+        surtitre="Du CP1 à la Terminale"
         titre="Nos formations"
         intro="Un parcours complet, sans rupture, au sein du même établissement."
         centre
@@ -326,7 +332,7 @@ const vieScolaire = [
         {
           formations.map((formation, index) => (
             <div class="carte anim flex flex-col p-6 md:p-7" data-retard={index + 1}>
-              <p class="text-xs font-semibold tracking-[0.16em] text-dore-texte uppercase">
+              <p class="text-sm font-semibold tracking-[0.06em] text-dore-texte">
                 {formation.niveaux}
               </p>
               <h3 class="mt-2.5 text-xl md:text-2xl">{formation.titre}</h3>
