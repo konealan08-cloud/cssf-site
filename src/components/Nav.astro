@@ -41,32 +41,15 @@ function estActif(href: string): boolean {
                   aria-current={actif ? 'page' : undefined}
                   class:list={[
                     'relative flex h-[52px] items-center whitespace-nowrap text-[13px] leading-none transition-colors duration-200 xs:text-sm md:text-base',
-                    onglet.accent
-                      ? actif
-                        ? 'font-bold text-dore-texte'
-                        : 'font-semibold text-dore-texte hover:text-dore'
-                      : actif
-                        ? 'font-bold text-vert'
-                        : 'font-medium text-encre hover:text-vert',
+                    actif ? 'font-bold text-vert' : 'font-medium text-encre hover:text-vert',
                   ]}
                 >
                   {onglet.libelle}
                   {
-                    onglet.accent && !actif && (
-                      <span
-                        class="absolute inset-x-1 bottom-[13px] h-[2px] rounded-full bg-dore/45"
-                        aria-hidden="true"
-                      />
-                    )
-                  }
-                  {
                     actif && (
                       <span
                         transition:name="onglet-actif"
-                        class:list={[
-                          'absolute inset-x-0 bottom-0 h-[3px] rounded-t-sm',
-                          onglet.accent ? 'bg-dore' : 'bg-vert',
-                        ]}
+                        class="absolute inset-x-0 bottom-0 h-[3px] rounded-t-sm bg-vert"
                         aria-hidden="true"
                       />
                     )
