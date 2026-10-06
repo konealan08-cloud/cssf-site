@@ -24,6 +24,22 @@ const articles = defineCollection({
      * texte : elle est alors montree en entier, sans aucun recadrage.
      */
     photoEntiere: z.boolean().default(false),
+    /**
+     * Taux de reussite a afficher en compteurs animes. Quand ce champ est
+     * rempli, les taux remplacent la photo en tete de l'article et sur sa carte,
+     * et la photo passe en illustration secondaire, sous le texte.
+     */
+    taux: z
+      .array(
+        z.object({
+          examen: z.string(),
+          valeur: z.number(),
+          decimales: z.number().int().default(0),
+        }),
+      )
+      .optional(),
+    /** Legende de la photo quand elle est montree en illustration secondaire. */
+    photoLegende: z.string().optional(),
     /** Source de l'information, si elle provient d'un tiers. */
     source: z.string().optional(),
     /** Mettre a false pour retirer un article du site sans le supprimer. */

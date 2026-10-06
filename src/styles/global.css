@@ -211,6 +211,17 @@
     color: #ffffff;
   }
 
+  /* Bouton du jubile : fond dore fonce, texte blanc (contraste AA) */
+  .btn-dore {
+    background-color: var(--color-dore-texte);
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgb(17 17 17 / 0.16);
+  }
+  .btn-dore:hover {
+    background-color: #6a540d;
+    box-shadow: 0 6px 18px -6px rgb(126 100 16 / 0.6);
+  }
+
   .btn:active {
     transform: translateY(1px);
   }

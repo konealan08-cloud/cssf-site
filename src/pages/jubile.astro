@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TitreSection from '../components/TitreSection.astro';
+import Compteur from '../components/Compteur.astro';
+import PhotoAgrandissable from '../components/PhotoAgrandissable.astro';
+import { ECOLE } from '../lib/site';
+import { PHOTOS_JUBILE, THEME_JUBILE } from '../lib/jubile';
+
+const engagements = [
+  "d'excellence dans l'éducation",
+  "de formation de l'élite burkinabè",
+  "d'accompagnement de citoyens responsables au service de la société",
+];
+
+const etapes = [
+  {
+    date: '25 octobre 2025',
+    titre: 'Lancement',
+    texte: 'Ouverture officielle du jubilé par une messe solennelle.',
+  },
+  {
+    date: 'Année scolaire 2025-2026',
+    titre: 'Activités jubilaires',
+    texte: "L'établissement vit au rythme des activités du jubilé.",
+  },
+  {
+    date: 'Janvier 2027',
+    titre: 'Apothéose',
+    texte: 'Point culminant des festivités du jubilé.',
+  },
+];
+
+/** Tracés d'icônes (24 × 24, trait), dessinés pour ce site. */
+const activites = [
+  {
+    titre: 'Activités spirituelles',
+    texte: 'Temps de prière, célébrations et actions de grâce.',
+    icone: ['M12 3v18', 'M7 8.5h10'],
+  },
+  {
+    titre: 'Activités pédagogiques',
+    texte: "Débats d'art oratoire, olympiades de Mathématiques et de Physique-Chimie.",
+    icone: [
+      'M2 4.5h6a4 4 0 0 1 4 4V20a3 3 0 0 0-3-3H2z',
+      'M22 4.5h-6a4 4 0 0 0-4 4V20a3 3 0 0 1 3-3h7z',
+    ],
+  },
+  {
+    titre: 'Compétitions culturelles',
+    texte: 'Échanges culturels et concours inter-établissements.',
+    icone: ['M9 18V5l12-2v13', 'M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M18 19a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'],
+  },
+  {
+    titre: 'Compétitions sportives',
+    texte: "Tournois inter-établissements et séances d'aérobic.",
+    icone: [
+      'M6 9H4.5a2.5 2.5 0 0 1 0-5H6',
+      'M18 9h1.5a2.5 2.5 0 0 0 0-5H18',
+      'M4 22h16',
+      'M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22',
+      'M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8',
+      'M18 2H6v7a6 6 0 0 0 12 0z',
+    ],
+  },
+  {
+    titre: 'Actions sociales',
+    texte: 'Initiatives solidaires au bénéfice des plus démunis.',
+    icone: [
+      'M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  titre="Jubilé d'argent, 25 ans — Complexe Scolaire Sainte Famille, Pissy Ouagadougou"
+  description="Le Complexe Scolaire Sainte Famille célèbre ses 25 ans : lancement le 25 octobre 2025, activités jubilaires tout au long de l'année 2025-2026 et apothéose des festivités en janvier 2027."
+>
+  <!-- ============ a) Bandeau-titre ============ -->
+  <section class="relative overflow-hidden bg-creme">
+    <!-- Halo doré et grand « 25 » en filigrane, purement décoratifs -->
+    <div
+      class="pointer-events-none absolute inset-0"
+      aria-hidden="true"
+      style="background-image: radial-gradient(circle at 85% 15%, rgb(184 146 31 / 0.2) 0, transparent 45%), radial-gradient(circle at 10% 95%, rgb(184 146 31 / 0.12) 0, transparent 40%)"
+    >
+    </div>
+    <p
+      class="pointer-events-none absolute -right-4 -bottom-10 font-serif text-[11rem] leading-none text-dore/10 select-none md:-bottom-16 md:text-[20rem]"
+      aria-hidden="true"
+    >
+      25
+    </p>
+    <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-dore via-dore-clair to-dore" aria-hidden="true"></div>
+
+    <div class="conteneur relative py-12 md:py-20">
+      <p
+        class="monte monte-1 inline-flex items-center gap-2 rounded-full border border-dore/50 bg-white px-3.5 py-1.5 text-xs font-semibold tracking-[0.14em] text-dore-texte uppercase"
+      >
+        <span class="h-1.5 w-1.5 rounded-full bg-dore" aria-hidden="true"></span>
+        25 ans · 2001-2026
+      </p>
+
+      <h1 class="monte monte-2 mt-5 text-[2.125rem] leading-[1.1] md:text-[3.75rem]">
+        Jubilé d'argent <span class="text-dore">·</span> 25 ans
+      </h1>
+      <p class="monte monte-2 mt-2 text-sm font-medium text-encre-faible md:text-base">{ECOLE.nom}</p>
+
+      <figure class="monte monte-3 mt-8 max-w-3xl border-l-[3px] border-dore pl-5 md:mt-10 md:pl-7">
+        <p class="text-xs font-semibold tracking-[0.18em] text-dore-texte uppercase">Thème du jubilé</p>
+        <blockquote
+          class="mt-3 font-serif text-xl leading-snug text-encre md:text-[1.875rem] md:leading-[1.35]"
+        >
+          <span class="text-dore" aria-hidden="true">«&nbsp;</span>{THEME_JUBILE}<span
+            class="text-dore"
+            aria-hidden="true">&nbsp;»</span
+          >
+        </blockquote>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ b) 25 ans au service de la Nation et du Monde ============ -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="mx-auto max-w-3xl">
+        <TitreSection
+          surtitre="Depuis 2001"
+          titre="25 ans au service de la Nation et du Monde"
+          centre
+        />
+        <p class="anim texte-courant texte-justifie mt-6">
+          Depuis sa création en 2001, le Complexe Scolaire Sainte Famille (CSSF) s'est imposé comme
+          une référence dans le paysage éducatif burkinabè et africain.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-3 md:gap-7">
+        {
+          engagements.map((engagement, index) => (
+            <div
+              class="carte anim flex flex-col items-center border-t-[3px] border-t-dore px-6 py-8 text-center md:py-10"
+              data-retard={index + 1}
+            >
+              <p class="font-serif text-[2.75rem] leading-none text-dore-texte md:text-[3.25rem]">
+                <Compteur valeur={25} suffixe=" ans" />
+              </p>
+              <p class="mt-4 max-w-[26ch] text-base leading-snug font-medium text-encre-douce md:text-lg">
+                {engagement}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="anim mx-auto mt-10 max-w-3xl rounded-2xl bg-creme px-6 py-7 md:mt-14 md:px-10 md:py-9">
+        <p class="texte-courant texte-justifie font-serif text-encre md:text-xl md:leading-relaxed">
+          Le CSSF rend grâce à Dieu pour les innombrables bénédictions reçues au cours de ces années.
+          Que Son nom soit glorifié à jamais.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ c) Les célébrations du Jubilé d'Argent ============ -->
+  <section class="section bg-creme">
+    <div class="conteneur">
+      <div class="mx-auto max-w-3xl">
+        <TitreSection surtitre="2025 – 2027" titre="Les célébrations du Jubilé d'Argent" centre />
+        <p class="anim texte-courant texte-justifie mt-6">
+          Le jubilé d'argent a été officiellement lancé le 25 octobre 2025 par une messe solennelle.
+          Depuis l'année scolaire 2025-2026, l'établissement vit au rythme des activités jubilaires,
+          qui culmineront en janvier 2027 lors de l'apothéose des festivités.
+        </p>
+      </div>
+
+      <!-- Mini-frise : verticale sur mobile, horizontale sur ordinateur -->
+      <div class="anim relative mx-auto mt-10 max-w-5xl md:mt-14">
+        <div
+          class="absolute top-2 bottom-2 left-[9px] w-[2px] bg-gradient-to-b from-dore via-dore/60 to-dore md:top-[9px] md:right-[16.66%] md:bottom-auto md:left-[16.66%] md:h-[2px] md:w-auto md:bg-gradient-to-r"
+          aria-hidden="true"
+        >
+        </div>
+        <ol class="relative md:grid md:grid-cols-3 md:gap-6">
+          {
+            etapes.map((etape, index) => (
+              <li
+                class="anim relative pb-8 pl-10 last:pb-0 md:flex md:flex-col md:items-center md:pb-0 md:pl-0 md:text-center"
+                data-retard={index + 1}
+              >
+                <span
+                  class:list={[
+                    'absolute top-0 left-0 grid h-5 w-5 place-items-center rounded-full border-[3px] border-creme md:relative',
+                    index === etapes.length - 1 ? 'bg-dore-texte' : 'bg-dore',
+                  ]}
+                  aria-hidden="true"
+                />
+                <p class="text-sm font-semibold text-dore-texte md:mt-4">{etape.date}</p>
+                <h3 class="mt-1 text-lg md:text-xl">{etape.titre}</h3>
+                <p class="mt-1.5 texte-carte md:max-w-[24ch]">{etape.texte}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ d) Au programme des activités jubilaires ============ -->
+  <section class="section">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="Toute l'année"
+        titre="Au programme des activités jubilaires"
+        centre
+      />
+
+      <ul class="mt-10 flex flex-wrap justify-center gap-5 md:mt-14 md:gap-6">
+        {
+          activites.map((activite, index) => (
+            <li
+              class="carte anim flex w-full flex-col p-6 sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] md:p-7"
+              data-retard={Math.min(index + 1, 5)}
+            >
+              <span
+                class="grid h-12 w-12 place-items-center rounded-full bg-dore/12 text-dore-texte"
+                aria-hidden="true"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  {activite.icone.map((trace) => (
+                    <path d={trace} />
+                  ))}
+                </svg>
+              </span>
+              <h3 class="mt-4 text-lg md:text-xl">{activite.titre}</h3>
+              <p class="mt-2 texte-carte">{activite.texte}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ e) Galerie ============ -->
+  <section class="section bg-creme">
+    <div class="conteneur">
+      <TitreSection
+        surtitre="En images"
+        titre="La messe d'ouverture"
+        centre
+      />
+
+      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-2 md:gap-6">
+        <div class="anim" data-retard="1">
+          <PhotoAgrandissable
+            {...PHOTOS_JUBILE.procession}
+            largeurs={[480, 768, 1024]}
+            sizes="(max-width: 768px) 92vw, 560px"
+            ratio="4 / 3"
+            position="center 40%"
+            class="aspect-[4/3]"
+            classeCadre="rounded-2xl shadow-[0_22px_50px_-28px_rgb(17_17_17_/_0.45)]"
+          />
+        </div>
+        <div class="anim" data-retard="2">
+          <PhotoAgrandissable
+            {...PHOTOS_JUBILE.consecration}
+            largeurs={[480, 768, 1024]}
+            sizes="(max-width: 768px) 92vw, 560px"
+            ratio="4 / 3"
+            position="45% center"
+            class="aspect-[4/3]"
+            classeCadre="rounded-2xl shadow-[0_22px_50px_-28px_rgb(17_17_17_/_0.45)]"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

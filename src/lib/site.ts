@@ -51,9 +51,11 @@ export const MAPS_ITINERAIRE_URL = `https://www.google.com/maps/dir/?api=1&desti
 export const FACEBOOK_URL =
   'https://www.facebook.com/p/Complexe-Scolaire-Sainte-Famille-61575121974534/';
 
-export const NAVIGATION = [
-  { href: '/', libelle: 'Accueil', libelleCourt: 'Accueil' },
-  { href: '/ecole/', libelle: "L'école", libelleCourt: "L'école" },
-  { href: '/resultats/', libelle: 'Résultats', libelleCourt: 'Résultats' },
-  { href: '/inscriptions/', libelle: 'Inscriptions', libelleCourt: 'Inscription' },
-] as const;
+/** Onglets du site. `accent` met l'onglet en valeur avec le doré. */
+export const NAVIGATION: { href: string; libelle: string; accent?: boolean }[] = [
+  { href: '/', libelle: 'Accueil' },
+  { href: '/ecole/', libelle: "L'école" },
+  { href: '/jubile/', libelle: 'Jubilé', accent: true },
+  { href: '/resultats/', libelle: 'Résultats' },
+  { href: '/inscriptions/', libelle: 'Inscription' },
+];

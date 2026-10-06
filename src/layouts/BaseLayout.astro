@@ -10,6 +10,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import BoutonWhatsApp from '../components/BoutonWhatsApp.astro';
+import Visionneuse from '../components/Visionneuse.astro';
 import { CONTACT, ECOLE } from '../lib/site';
 import { photo } from '../lib/photos';
 
@@ -91,8 +92,14 @@ const donneesStructurees = {
         d.appendChild(t);
         var h = t.offsetHeight;
         t.style.hyphens = t.style.webkitHyphens = 'manual';
-        if (t.offsetHeight === h) d.classList.add('sans-cesure');
+        var sansCesure = t.offsetHeight === h;
         d.removeChild(t);
+        // Les transitions de page remplacent les attributs de <html> : on repose la classe.
+        function poser() {
+          if (sansCesure) document.documentElement.classList.add('sans-cesure');
+        }
+        poser();
+        document.addEventListener('astro:after-swap', poser);
       })();
     </script>
 
@@ -148,9 +155,13 @@ const donneesStructurees = {
 
     <Footer />
     <BoutonWhatsApp />
+    <Visionneuse />
 
     <script>
       import { demarrerAnimations } from '../scripts/animations';
+      import { activerVisionneuse } from '../scripts/visionneuse';
+
+      activerVisionneuse();
 
       demarrerAnimations();
       // Les transitions de page d'Astro remplacent le contenu : on relance.

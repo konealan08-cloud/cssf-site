@@ -11,10 +11,10 @@ Déposez ici les photos de l'école, en respectant **exactement** ces noms de fi
 | `laureats-prix`           | Pilier EXCELLENCE, page Résultats, article Journée du mérite |
 | `tenues-traditionnelles`  | Pilier CULTURE, page L'école                                 |
 | `sensibilisation-jeppc`   | Article JEPPC 2025                                           |
-| `resultats-bacd-2026`     | Article « Résultats du BAC D 2026 » (affiche, montrée entière) |
+| `resultats-bacd-2026`     | Article « Résultats 2026 », sous le texte (affiche entière) |
 | `don-pdi-2023`            | Article « Solidarité : dons aux PDI »                        |
-| `jubile-procession`       | Encart Jubilé d'argent (Accueil), grande photo               |
-| `jubile-hostie`           | Encart Jubilé d'argent (Accueil)                             |
+| `jubile-procession`       | Encart Jubilé (Accueil) et galerie de la page Jubilé         |
+| `jubile-hostie`           | Encart Jubilé (Accueil) et galerie de la page Jubilé         |
 
 Les dix photos sont en place. Tant qu'un fichier est absent, le site affiche à sa place un cadre sobre
 « Photo à venir ». Rien ne casse, la mise en page reste intacte.

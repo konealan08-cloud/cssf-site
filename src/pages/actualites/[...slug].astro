@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Photo from '../../components/Photo.astro';
 import CarteArticle from '../../components/CarteArticle.astro';
+import TauxReussite from '../../components/TauxReussite.astro';
 import { dateEnFrancais } from '../../lib/dates';
 import { WHATSAPP_URL } from '../../lib/site';
 
@@ -74,7 +75,10 @@ const isoDate = article.data.date.toISOString().slice(0, 10);
 
     <div class="conteneur py-12 md:py-16">
       <div class="mx-auto max-w-[760px]">
-        <!-- Photo de l'article -->
+        <!-- Taux de reussite en tete, ou a defaut la photo de l'article -->
+        {article.data.taux ? (
+          <TauxReussite taux={article.data.taux} />
+        ) : (
         <figure class="anim overflow-hidden rounded-2xl">
           <Photo
             nom={article.data.photo ?? '__absente__'}
@@ -90,11 +94,35 @@ const isoDate = article.data.date.toISOString().slice(0, 10);
             }`}
           />
         </figure>
+        )}
 
         <!-- Corps de l'article -->
         <div class="anim prose-cssf mt-9" data-retard="1">
           <Content />
         </div>
+
+        {
+          article.data.taux && article.data.photo && (
+            <figure class="anim mx-auto mt-10 max-w-md">
+              <div class="overflow-hidden rounded-2xl border border-black/8 bg-creme p-3">
+                <Photo
+                  nom={article.data.photo}
+                  alt={article.data.photoAlt ?? article.data.titre}
+                  largeurs={[480, 768]}
+                  sizes="(max-width: 768px) 92vw, 448px"
+                  ratio="3 / 4"
+                  ajustement="entier"
+                  class="w-full rounded-lg object-contain"
+                />
+              </div>
+              {article.data.photoLegende && (
+                <figcaption class="mt-3 text-center text-sm text-encre-faible">
+                  {article.data.photoLegende}
+                </figcaption>
+              )}
+            </figure>
+          )
+        }
 
         {
           article.data.source && (

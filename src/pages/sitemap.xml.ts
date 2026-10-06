@@ -10,6 +10,7 @@ export const GET: APIRoute = async ({ site }) => {
   const pages: { chemin: string; priorite: string; maj?: Date }[] = [
     { chemin: '/', priorite: '1.0' },
     { chemin: '/ecole/', priorite: '0.8' },
+    { chemin: '/jubile/', priorite: '0.8' },
     { chemin: '/resultats/', priorite: '0.8' },
     { chemin: '/inscriptions/', priorite: '0.9' },
     ...articles

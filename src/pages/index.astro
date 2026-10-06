@@ -5,6 +5,8 @@ import Photo from '../components/Photo.astro';
 import CarteChiffre from '../components/CarteChiffre.astro';
 import CarteArticle from '../components/CarteArticle.astro';
 import TitreSection from '../components/TitreSection.astro';
+import PhotoAgrandissable from '../components/PhotoAgrandissable.astro';
+import { PHOTOS_JUBILE, THEME_JUBILE } from '../lib/jubile';
 import { ECOLE, lienWhatsApp, WHATSAPP_URL } from '../lib/site';
 
 const articles = (await getCollection('articles', ({ data }) => data.publie)).sort(
@@ -167,7 +169,7 @@ const piliers = [
     </div>
   </section>
 
-  <!-- ============ Jubilé d'argent (2001-2026) ============ -->
+  <!-- ============ Jubilé d'argent (2001-2026), détail sur /jubile/ ============ -->
   <section class="pb-16 md:pb-24" aria-labelledby="titre-jubile">
     <div class="conteneur">
       <div
@@ -190,50 +192,33 @@ const piliers = [
             <div class="mt-4 h-[3px] w-14 rounded-full bg-dore" aria-hidden="true"></div>
 
             <p class="texte-courant texte-justifie mt-5">
-              En octobre 2001, le Complexe Scolaire Sainte Famille ouvrait ses portes à Pissy, offert
-              par les Frères de la Sainte Famille du monde entier à l'occasion du centenaire de
-              l'évangélisation du Burkina Faso. Vingt-cinq ans plus tard, l'établissement a célébré
-              son jubilé d'argent dans l'action de grâce, fier des milliers d'élèves formés dans
-              l'esprit de sa devise : <strong class="font-semibold text-encre"
-                >Discipline – Travail – Fraternité</strong
-              >.
+              Depuis le 25 octobre 2025, le Complexe Scolaire Sainte Famille célèbre son jubilé
+              d'argent sous le thème&nbsp;: <em class="font-serif text-encre not-italic"
+                >«&nbsp;{THEME_JUBILE}&nbsp;»</em
+              > Les festivités culmineront en janvier 2027.
             </p>
+
+            <a href="/jubile/" class="btn btn-dore mt-7 self-start">Découvrir le jubilé</a>
           </div>
 
-          <!-- Photos de la célébration -->
-          <div class="grid grid-cols-2 gap-3 md:gap-4">
-            <figure class="relative col-span-2 overflow-hidden rounded-xl">
-              <Photo
-                nom="jubile-procession"
-                alt="Procession des servants de messe en aube blanche lors de la célébration du jubilé d'argent"
-                largeurs={[480, 768, 1024]}
-                sizes="(max-width: 768px) 92vw, 560px"
-                ratio="3 / 2"
-                position="center 40%"
-                class="aspect-[3/2] w-full object-cover"
-              />
-              <figcaption
-                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3 text-sm font-medium text-white"
-              >
-                La procession d'entrée
-              </figcaption>
-            </figure>
-            <figure class="relative col-span-2 overflow-hidden rounded-xl">
-              <Photo
-                nom="jubile-hostie"
-                alt="Le prêtre élève l'hostie pendant la messe d'action de grâce du jubilé"
-                largeurs={[480, 768, 1024]}
-                sizes="(max-width: 768px) 92vw, 560px"
-                ratio="16 / 9"
-                position="center 45%"
-                class="aspect-[16/9] w-full object-cover"
-              />
-              <figcaption
-                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3 text-sm font-medium text-white"
-              >
-                L'action de grâce
-              </figcaption>
-            </figure>
+          <!-- Photos de la messe d'ouverture, agrandissables au clic -->
+          <div class="flex flex-col gap-3 md:gap-4">
+            <PhotoAgrandissable
+              {...PHOTOS_JUBILE.procession}
+              largeurs={[480, 768, 1024]}
+              sizes="(max-width: 768px) 92vw, 560px"
+              ratio="3 / 2"
+              position="center 40%"
+              class="aspect-[3/2]"
+            />
+            <PhotoAgrandissable
+              {...PHOTOS_JUBILE.consecration}
+              largeurs={[480, 768, 1024]}
+              sizes="(max-width: 768px) 92vw, 560px"
+              ratio="16 / 9"
+              position="center 45%"
+              class="aspect-[16/9]"
+            />
           </div>
         </div>
       </div>

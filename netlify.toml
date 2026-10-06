@@ -24,3 +24,9 @@
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# L'actualite « Resultats du BAC D 2026 » est devenue « Resultats 2026 ».
+[[redirects]]
+  from = "/actualites/resultats-bac-d-2026/"
+  to = "/actualites/resultats-2026/"
+  status = 301

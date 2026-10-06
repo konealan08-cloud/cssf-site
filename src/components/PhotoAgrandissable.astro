@@ -1,0 +1,75 @@
+---
+/**
+ * Photo legendee qui s'agrandit au clic dans la <Visionneuse>.
+ * La version agrandie (1 600 px, WebP) n'est telechargee qu'a l'ouverture.
+ */
+import { getImage } from 'astro:assets';
+import Photo from './Photo.astro';
+import { photo } from '../lib/photos';
+
+interface Props {
+  nom: string;
+  alt: string;
+  legende: string;
+  largeurs?: number[];
+  sizes?: string;
+  ratio?: string;
+  position?: string;
+  /** Classes de l'image (dont le rapport d'aspect). */
+  class?: string;
+  /** Classes du cadre <figure>. */
+  classeCadre?: string;
+}
+
+const { nom, alt, legende, largeurs, sizes, ratio, position, class: classe = '', classeCadre = '' } =
+  Astro.props;
+
+const source = photo(nom);
+const grande = source
+  ? await getImage({ src: source, format: 'webp', width: Math.min(1600, source.width), quality: 80 })
+  : undefined;
+---
+
+<figure class={`group relative overflow-hidden rounded-xl ${classeCadre}`}>
+  <button
+    type="button"
+    class="block w-full cursor-zoom-in"
+    data-agrandir={grande?.src}
+    data-alt={alt}
+    data-legende={legende}
+    aria-label={`Agrandir la photo : ${legende}`}
+    disabled={!grande}
+  >
+    <Photo
+      nom={nom}
+      alt={alt}
+      largeurs={largeurs}
+      sizes={sizes}
+      ratio={ratio}
+      position={position}
+      class={`w-full object-cover transition-transform duration-700 ease-(--ease-douce) group-hover:scale-[1.04] ${classe}`}
+    />
+    <span
+      class="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white opacity-90 transition-opacity group-hover:opacity-100"
+      aria-hidden="true"
+    >
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
+      </svg>
+    </span>
+  </button>
+  <figcaption
+    class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-4 pt-10 pb-3 text-left text-sm leading-snug font-medium text-white"
+  >
+    {legende}
+  </figcaption>
+</figure>

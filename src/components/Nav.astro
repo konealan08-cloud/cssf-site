@@ -1,7 +1,8 @@
 ---
 /**
  * Barre de navigation : une seule barre de 52 px, collee en haut.
- * Les 4 onglets restent visibles sur mobile comme sur ordinateur.
+ * Les 5 onglets restent visibles sur une seule ligne, des 360 px de large :
+ * texte a 13 px et espacement resserre sur les petits ecrans.
  * Aucun menu burger, aucun menu deroulant.
  */
 import { NAVIGATION } from '../lib/site';
@@ -19,17 +20,17 @@ function estActif(href: string): boolean {
 <header
   class="sticky top-0 z-50 h-[52px] w-full border-b border-black/5 bg-white shadow-[0_1px_3px_rgb(17_17_17_/_0.07)]"
 >
-  <div class="mx-auto flex h-[52px] w-full max-w-[1200px] items-center gap-2.5 px-3 md:gap-8 md:px-8">
+  <div class="mx-auto flex h-[52px] w-full max-w-[1200px] items-center gap-2 px-2.5 xs:gap-3 xs:px-3 md:gap-8 md:px-8">
     <a
       href="/"
       class="shrink-0 rounded-sm transition-transform duration-300 hover:scale-105"
       aria-label="Complexe Scolaire Sainte Famille — retour à l'accueil"
     >
-      <LogoEcole class="h-8 w-8 md:h-10 md:w-10" />
+      <LogoEcole class="h-7 w-7 xs:h-8 xs:w-8 md:h-10 md:w-10" />
     </a>
 
     <nav aria-label="Navigation principale" class="min-w-0 flex-1">
-      <ul class="flex items-center gap-2.5 xs:gap-4 md:gap-7">
+      <ul class="flex items-center justify-between xs:justify-start xs:gap-3.5 md:gap-7">
         {
           NAVIGATION.map((onglet) => {
             const actif = estActif(onglet.href);
@@ -39,17 +40,33 @@ function estActif(href: string): boolean {
                   href={onglet.href}
                   aria-current={actif ? 'page' : undefined}
                   class:list={[
-                    'relative flex h-[52px] items-center whitespace-nowrap text-sm leading-none transition-colors duration-200 md:text-base',
-                    actif ? 'font-bold text-vert' : 'font-medium text-encre hover:text-vert',
+                    'relative flex h-[52px] items-center whitespace-nowrap text-[13px] leading-none transition-colors duration-200 xs:text-sm md:text-base',
+                    onglet.accent
+                      ? actif
+                        ? 'font-bold text-dore-texte'
+                        : 'font-semibold text-dore-texte hover:text-dore'
+                      : actif
+                        ? 'font-bold text-vert'
+                        : 'font-medium text-encre hover:text-vert',
                   ]}
                 >
-                  <span class="xs:hidden">{onglet.libelleCourt}</span>
-                  <span class="hidden xs:inline">{onglet.libelle}</span>
+                  {onglet.libelle}
+                  {
+                    onglet.accent && !actif && (
+                      <span
+                        class="absolute inset-x-1 bottom-[13px] h-[2px] rounded-full bg-dore/45"
+                        aria-hidden="true"
+                      />
+                    )
+                  }
                   {
                     actif && (
                       <span
                         transition:name="onglet-actif"
-                        class="absolute inset-x-0 bottom-0 h-[3px] rounded-t-sm bg-vert"
+                        class:list={[
+                          'absolute inset-x-0 bottom-0 h-[3px] rounded-t-sm',
+                          onglet.accent ? 'bg-dore' : 'bg-vert',
+                        ]}
                         aria-hidden="true"
                       />
                     )

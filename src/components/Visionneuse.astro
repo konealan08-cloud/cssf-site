@@ -1,0 +1,73 @@
+---
+/**
+ * Visionneuse plein ecran des photos agrandissables (<PhotoAgrandissable>).
+ * Un seul <dialog> natif pour tout le site : Echap le ferme, le focus reste
+ * piege dedans, aucune librairie. Le script est dans `scripts/visionneuse.ts`.
+ */
+---
+
+<dialog
+  id="visionneuse"
+  class="visionneuse fixed inset-0 m-0 h-[100svh] max-h-none w-screen max-w-none bg-[#0a0a0a] p-0"
+  aria-label="Photo agrandie"
+>
+  <figure
+    class="mx-auto flex h-full w-[min(1100px,94vw)] flex-col items-center justify-center gap-3 py-16"
+  >
+    <img
+      data-visionneuse-image
+      src="data:,"
+      alt=""
+      class="max-h-[calc(100svh-10rem)] w-auto max-w-full rounded-lg object-contain shadow-2xl"
+    />
+    <figcaption
+      data-visionneuse-legende
+      class="max-w-2xl px-2 text-center text-sm font-medium text-white/90 md:text-base"
+    >
+    </figcaption>
+  </figure>
+
+  <button
+    type="button"
+    data-visionneuse-fermer
+    class="fixed top-3 right-3 grid h-12 w-12 place-items-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/25"
+    aria-label="Fermer la photo"
+  >
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M6 6l12 12M18 6 6 18"></path>
+    </svg>
+  </button>
+</dialog>
+
+<style>
+  .visionneuse::backdrop {
+    background-color: transparent;
+  }
+  .visionneuse[open] {
+    animation: visionneuse-entree 0.25s var(--ease-douce);
+  }
+  @keyframes visionneuse-entree {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .visionneuse[open] {
+      animation: none;
+    }
+  }
+  /* Bloque le defilement de la page tant que la photo est ouverte */
+  :global(html:has(dialog.visionneuse[open])) {
+    overflow: hidden;
+  }
+</style>
