@@ -25,8 +25,11 @@ const { nom, alt, legende, largeurs, sizes, ratio, position, class: classe = '',
   Astro.props;
 
 const source = photo(nom);
+// Ne jamais lire source.width ou source.src ici : Astro publierait alors aussi
+// le fichier d'origine, non optimise. Astro n'agrandit pas une image plus
+// petite que la largeur demandee.
 const grande = source
-  ? await getImage({ src: source, format: 'webp', width: Math.min(1600, source.width), quality: 80 })
+  ? await getImage({ src: source, format: 'webp', width: 1600, quality: 80 })
   : undefined;
 ---
 

@@ -106,9 +106,10 @@ ordinateur, compression, chargement différé.
 | `laureats-prix`          | Pilier EXCELLENCE, page Résultats, article Journée du mérite |
 | `tenues-traditionnelles` | Pilier CULTURE, page L'école                                 |
 | `sensibilisation-jeppc`  | Article JEPPC 2025                                           |
-| `directeur`              | Mot du directeur (recadré en rond automatiquement)           |
-| `resultats-bacd-2026`    | Article « Résultats du BAC D 2026 » (affiche, montrée entière) |
+| `resultats-bacd-2026`    | Article « Résultats 2026 », sous le texte (affiche entière)  |
 | `don-pdi-2023`           | Article « Solidarité : dons aux PDI »                         |
+| `jubile-procession`      | Encart Jubilé (accueil) et galerie de la page Jubilé         |
+| `jubile-hostie`          | Encart Jubilé (accueil) et galerie de la page Jubilé         |
 
 L'extension peut être `.jpg`, `.png` ou `.webp`. **Le nom, lui, doit être exact.**
 
@@ -120,9 +121,19 @@ Pour remplacer une photo : supprimez l'ancienne et déposez la nouvelle sous le
 même nom. Tant qu'un fichier est absent, le site affiche un cadre sobre
 « Photo à venir » : la mise en page reste intacte, rien ne casse.
 
-Conseils : privilégiez des photos **en paysage** (sauf `directeur`, où un portrait
-convient mieux), d'au moins **1 600 px de large** pour la bannière. Inutile de les
-compresser vous-même.
+Conseils : privilégiez des photos **en paysage**, d'au moins **1 600 px de large**
+pour la bannière. Inutile de les compresser vous-même.
+
+**Après chaque ajout de photo, retirez ses métadonnées** (appareil, numéro de série,
+date, parfois position GPS) avant d'envoyer sur GitHub :
+
+```bash
+node scripts/nettoyer-photos.mjs
+```
+
+**Photos d'élèves :** ne publiez une photo où un élève est reconnaissable qu'avec
+l'accord écrit de ses parents (autorisation de droit à l'image), et n'associez
+jamais un nom d'élève à sa photo.
 
 ---
 
@@ -170,7 +181,7 @@ Le site est **déjà en ligne** sur Netlify, relié au dépôt GitHub.
 
 ### Mettre le site à jour
 
-Il suffit d'envoyer vos modifications sur GitHub :
+Envoyez vos modifications sur GitHub :
 
 ```bash
 git add .
@@ -178,8 +189,9 @@ git commit -m "Description de la modification"
 git push
 ```
 
-Netlify reconstruit et republie le site tout seul, en deux à trois minutes.
-Vous pouvez suivre l'avancement sur https://app.netlify.com/projects/cssf-bf
+**Attention :** le dépôt n'a pas de webhook vers Netlify, un `git push` ne
+republie donc pas le site. Lancez ensuite la reconstruction depuis
+https://app.netlify.com/projects/cssf-bf (**Deploys → Trigger deploy**).
 
 ### Publier depuis votre ordinateur (sans passer par GitHub)
 
@@ -189,6 +201,9 @@ npx netlify deploy --prod --dir=dist
 ```
 
 ### Repartir de zéro ailleurs (Vercel)
+
+Attention : la politique de sécurité (CSP) est écrite dans `dist/_headers`, un
+format propre à Netlify. Sur Vercel, il faudra la reporter dans `vercel.json`.
 
 1. Créez un compte sur [vercel.com](https://vercel.com).
 2. **Add New → Project**, choisissez le dépôt.

@@ -3,13 +3,21 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # Node 20 n'est plus maintenu depuis avril 2026 : 22 est suivi jusqu'en avril 2027.
+  NODE_VERSION = "22"
 
+# En-tetes de securite, sur toutes les pages. La Content-Security-Policy est a
+# part, dans dist/_headers, generee au build par scripts/csp.mjs.
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # Interdit d'afficher le site dans un cadre d'un autre site (clickjacking)
+    X-Frame-Options = "DENY"
+    # Le site n'a besoin d'aucune de ces fonctions du navigateur
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=(), browsing-topics=()"
+    Cross-Origin-Opener-Policy = "same-origin"
 
 [[headers]]
   for = "/photos/*"
